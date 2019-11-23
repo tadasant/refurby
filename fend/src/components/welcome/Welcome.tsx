@@ -1,18 +1,20 @@
 import React from "react";
-import { Button } from "@blueprintjs/core";
 import "./Welcome.scss";
 import { withRouter, RouterProps } from "react-router";
 import LandingSvg from "../../images/landing.svg";
+
+const LinkedInButton = require("../../images/linked-in-button.png");
 
 const Welcome: React.FC<RouterProps> = props => {
 	return (
 		<div className="welcome__outer-container">
 			<div className="welcome__inner-container">
 				<img className="landing-background" alt="landing" src={LandingSvg} />
-				<Button
-					className="linkedin-button"
-					text="Login With LinkedIn"
+				<img
 					onClick={() => props.history.push("/dashboard")}
+					src={LinkedInButton}
+					alt="linkedin"
+					className="linked-in-button"
 				/>
 			</div>
 		</div>
