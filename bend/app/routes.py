@@ -4,7 +4,7 @@ from flask import request, jsonify
 
 from app import app
 from app.models import User
-from app.scorer import candidate_score_for_opp
+from app.scorer import generate_matches
 
 @app.route('/')
 @app.route('/index')
@@ -20,13 +20,20 @@ def send_opp():
 @app.route('/find_matches', methods=['GET', 'POST'])
 def find_matches():
 		user_id = request.args.get("user_id", 1, type=int)
-		opp = {
-			'blurb': "This job is for a kick-ass engineer",
-		}
+		opp = json.loads(request.args.get("opp"))
 		user = User.query.filter_by(id=user_id).first()
-		friends_of_friends =  user.friends_of_friends()
-		friends_of_friends.sort(
-				reverse=True,
-				key=lambda c: candidate_score_for_opp(c, opp))
-		print(friends_of_friends)
-		return friends_of_friends[0].name
+		friends_of_friends = user.friends_of_friends()
+		matches = generate_matches(friends_of_friends, opp)
+		matches_data = [
+			{
+				"id": c.id,
+				"name": c.name,
+				"degree": 2,
+				"linkedInUrl": c.linkedin_url,
+				"imageUrl": c.image_url,
+				"matchScore": score,
+				"matchFields": reasons
+			} for (c, score, reasons) in matches
+
+		]
+		return jsonify({'connections': matches_data})
