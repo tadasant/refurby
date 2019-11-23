@@ -1,5 +1,11 @@
 import React from "react";
-import { FormGroup, Checkbox, Button } from "@blueprintjs/core";
+import {
+	FormGroup,
+	Checkbox,
+	Button,
+	Card,
+	Elevation
+} from "@blueprintjs/core";
 import { Opportunity } from "../../../types";
 import { withRouter, RouteComponentProps } from "react-router";
 import { OpportunityStep } from "../OpportunityView";
@@ -7,6 +13,7 @@ import Toaster from "../../toaster";
 import "./SendOpportunity.scss";
 
 const IPhonePreview = require("../../../static/iphone.png");
+const WhiteFurby = require("../../../images/furby-white.png");
 
 interface Props extends RouteComponentProps<any> {
 	opportunity: Opportunity;
@@ -44,20 +51,27 @@ const SendOpportunity: React.FC<Props> = ({
 
 	return (
 		<div>
-			<h2>Preview</h2>
-			<FormGroup label="Send anonymously?" inline>
-				<Checkbox checked={sendAnonymously} onChange={handleToggle} />
-			</FormGroup>
-			<img style={{ width: "500px" }} src={IPhonePreview} alt="convo" />
+			<img className="peeking-furby" src={WhiteFurby} alt="white-furby" />
+			<Card
+				elevation={Elevation.THREE}
+				className="send-opportunity__card send-opportunity__container"
+			>
+				<h2 className="send-header">Broadcast Preview</h2>
+				<FormGroup label="Send anonymously?" inline>
+					<Checkbox checked={sendAnonymously} onChange={handleToggle} />
+				</FormGroup>
+				<img className="preview-convo" src={IPhonePreview} alt="convo" />
+				<Button
+					className="send-button"
+					intent="primary"
+					text="Send Broadcast via SMS"
+					onClick={handleSubmit}
+				/>
+			</Card>
 			<Button
 				intent="none"
 				text="Back"
 				onClick={() => setStep(OpportunityStep.MATCH)}
-			/>
-			<Button
-				intent="primary"
-				text="Send Broadcast via SMS"
-				onClick={handleSubmit}
 			/>
 		</div>
 	);

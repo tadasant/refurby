@@ -9,11 +9,11 @@ export interface Opportunity {
 }
 
 export interface Match {
-	id: number;
+	id?: number;
 	name: string;
 	degree: number;
 	linkedInUrl?: string;
 	imageUrl?: string;
-	matchScore: number;
-	matchFields: string[];
+	matchScore?: number;
+	matchFields?: string[];
 }

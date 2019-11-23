@@ -14,6 +14,7 @@ import { Match } from "../../../types";
 import Matches from "../../../data/matches";
 import { OpportunityStep } from "../OpportunityView";
 import "./MatchOpportunity.scss";
+import _ from "lodash";
 
 const WhiteFurby = require("../../../images/furby-white.png");
 
@@ -30,7 +31,7 @@ const MatchListHeader: React.FC = () => {
 };
 const MatchListItem: React.FC<Match> = props => {
 	const { name, degree, imageUrl, matchScore } = props;
-	const endorsed = matchScore > 50; // TODO: tweak :)
+	const endorsed = matchScore !== undefined && matchScore > 50; // TODO: tweak :)
 
 	return (
 		<tr className="match-item">
@@ -52,12 +53,23 @@ const MatchListItem: React.FC<Match> = props => {
 	);
 };
 
+interface RandomUser {
+	name: {
+		first: string;
+		last: string;
+	};
+	picture: {
+		medium: string;
+	};
+}
+
 interface Props {
 	setStep: (step: OpportunityStep) => void;
 }
 
 const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 	const [matches, setMatches] = useState<Match[]>([]);
+	const [randomUsers, setRandomUsers] = useState<RandomUser[]>([]);
 
 	useEffect(() => {
 		async function getMatches() {
@@ -77,6 +89,16 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 		getMatches();
 	}, []);
 
+	useEffect(() => {
+		async function getRandomUsers() {
+			const result = await fetch(
+				"https://randomuser.me/api/?results=110"
+			).then(response => response.json());
+			setRandomUsers(result.results);
+		}
+		getRandomUsers();
+	}, []);
+
 	return (
 		<div>
 			<img className="peeking-furby" src={WhiteFurby} alt="white-furby" />
@@ -90,6 +112,15 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 					<tbody>
 						{matches.map(match => (
 							<MatchListItem {...match} />
+						))}
+						{randomUsers.map(randomUser => (
+							<MatchListItem
+								degree={Math.ceil(Math.random() * 2)}
+								imageUrl={randomUser.picture.medium}
+								name={`${_.upperFirst(randomUser.name.first)} ${_.upperFirst(
+									randomUser.name.last
+								)}`}
+							/>
 						))}
 					</tbody>
 				</table>
