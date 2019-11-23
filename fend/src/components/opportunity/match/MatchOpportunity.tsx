@@ -8,7 +8,8 @@ import {
 	Divider,
 	Elevation,
 	Card,
-	Checkbox
+	Checkbox,
+	Spinner
 } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { Match } from "../../../types";
@@ -108,6 +109,7 @@ const MatchOpportunity: React.FC<Props> = ({
 }) => {
 	const [matches, setMatches] = useState<Match[]>([]);
 	const [randomUsers, setRandomUsers] = useState<RandomUser[]>([]);
+	const [loadingTimerIsSet, setLoadingTimerIsSet] = useState<boolean>(false);
 
 	useEffect(() => {
 		async function getMatches() {
@@ -141,6 +143,19 @@ const MatchOpportunity: React.FC<Props> = ({
 		}
 		getRandomUsers();
 	}, []);
+
+	if (!loadingTimerIsSet) {
+		setTimeout(() => {
+			setLoadingTimerIsSet(true);
+		}, 2500 + Math.random() * 1000);
+		return (
+			<div>
+				<img className="peeking-furby" src={WhiteFurby} alt="white-furby" />
+				<Spinner intent="success" className="central-spinner" />
+				<h4>Calculating Matches...</h4>
+			</div>
+		);
+	}
 
 	return (
 		<div>

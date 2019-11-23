@@ -10,6 +10,10 @@ $darker-blue: #1f4b99;
 	z-index: -5;
 	margin-top: 24px;
 	left: calc(50vw - 50px);
+
+	&.relative {
+		position: relative;
+	}
 }
 
 .send-opportunity__container {
@@ -65,4 +69,8 @@ $darker-blue: #1f4b99;
 	width: 240px;
 	justify-content: space-between;
 	flex-wrap: wrap;
+}
+
+.central-spinner {
+	margin-top: 150px;
 }

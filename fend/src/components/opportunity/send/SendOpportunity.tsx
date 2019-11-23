@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	FormGroup,
 	Checkbox,
 	Button,
 	Card,
 	Elevation,
-	Icon
+	Icon,
+	Spinner
 } from "@blueprintjs/core";
 import { Opportunity, Match } from "../../../types";
 import { withRouter, RouteComponentProps } from "react-router";
@@ -35,6 +36,8 @@ const SendOpportunity: React.FC<Props> = ({
 	chosenRecipientIds,
 	matches
 }) => {
+	const [loadingTimerIsSet, setLoadingTimerIsSet] = useState<boolean>(false);
+
 	const handleToggle = () => {
 		setSendAnonymously(prevState => !!!prevState);
 	};
@@ -51,9 +54,22 @@ const SendOpportunity: React.FC<Props> = ({
 			// });
 		}
 		sendTexts();
-		Toaster.show({ message: "Successful broadcast!", intent: "success" });
-		history.push("/dashboard");
+		setLoadingTimerIsSet(true);
+		setTimeout(() => {
+			Toaster.show({ message: "Successful broadcast!", intent: "success" });
+			history.push("/dashboard");
+		}, 2500 + Math.random() * 1000);
 	};
+
+	if (loadingTimerIsSet) {
+		return (
+			<div>
+				<img className="peeking-furby" src={WhiteFurby} alt="white-furby" />
+				<Spinner intent="success" className="central-spinner" />
+				<h4>Distributing SMS...</h4>
+			</div>
+		);
+	}
 
 	return (
 		<div>
