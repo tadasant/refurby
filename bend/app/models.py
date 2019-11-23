@@ -20,9 +20,11 @@ class User(db.Model):
     industry = db.Column(db.String(64))
     years_of_experience = db.Column(db.Integer)
     degree = db.Column(db.Enum(Degree))
+    linkedin_url = db.Column(db.String(64))
+    image_url = db.Column(db.String(64))
 
     def friends_of_friends(self):
-        return [self]
+        return User.query.all()
 
     def __repr__(self):
         return '<User {}>'.format(self.email)
