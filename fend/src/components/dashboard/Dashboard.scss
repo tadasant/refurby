@@ -1,4 +1,22 @@
 .dashboard__opportunity {
 	margin-top: 8px;
 	margin-bottom: 8px;
+	width: 50vw;
+}
+
+.dashboard__outer-container {
+	display: flex;
+	width: 100%;
+	margin-left: 25vw;
+	margin-right: 25vw;
+}
+
+.dashboard__inner-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.add-new-opportunity-button {
+	margin-left: 16px;
+	float: right;
 }

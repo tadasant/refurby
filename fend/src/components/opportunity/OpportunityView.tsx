@@ -5,6 +5,7 @@ import MatchList from "./match/MatchOpportunity";
 import { Opportunity } from "../../types";
 import { Button } from "@blueprintjs/core";
 import SendOpportunity from "./send/SendOpportunity";
+import "./Opportunity.scss";
 
 export enum OpportunityStep {
 	CREATE,
@@ -48,23 +49,25 @@ const OpportunityView: React.FC<RouterProps> = props => {
 	};
 
 	return (
-		<div>
-			<Button intent="none" text="Back" onClick={handlePrevious} />
-			<Button intent="primary" text={nextAction} onClick={handleNext} />
-			{step === OpportunityStep.CREATE && (
-				<CreateOpportunity
-					opportunity={opportunity}
-					setOpportunity={setOpportunity}
-				/>
-			)}
-			{step === OpportunityStep.MATCH && <MatchList />}
-			{step === OpportunityStep.CONFIRM && (
-				<SendOpportunity
-					sendAnonymously={sendAnonymously}
-					setSendAnonymously={setSendAnonymously}
-					opportunity={opportunity}
-				/>
-			)}
+		<div className="opportunity__outer-container">
+			<div className="opportunity__inner-container">
+				<Button intent="none" text="Back" onClick={handlePrevious} />
+				<Button intent="primary" text={nextAction} onClick={handleNext} />
+				{step === OpportunityStep.CREATE && (
+					<CreateOpportunity
+						opportunity={opportunity}
+						setOpportunity={setOpportunity}
+					/>
+				)}
+				{step === OpportunityStep.MATCH && <MatchList />}
+				{step === OpportunityStep.CONFIRM && (
+					<SendOpportunity
+						sendAnonymously={sendAnonymously}
+						setSendAnonymously={setSendAnonymously}
+						opportunity={opportunity}
+					/>
+				)}
+			</div>
 		</div>
 	);
 };
