@@ -202,3 +202,11 @@ export const US_STATE = [
 ];
 
 export const DEGREES = ["High School", "Bachelors", "Masters", "PhD"];
+
+export const THEME_COLORS = [
+	"#B3CFFF",
+	"#91ACE5",
+	"#6F8ACB",
+	"#4B6AB2",
+	"#1F4B99"
+];
