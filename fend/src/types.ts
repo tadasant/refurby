@@ -7,3 +7,13 @@ export interface Opportunity {
 	blurb?: string;
 	title?: string;
 }
+
+export interface Match {
+	id: number;
+	name: string;
+	degree: number;
+	linkedInUrl?: string;
+	imageUrl?: string;
+	matchScore: number;
+	matchFields: string[];
+}

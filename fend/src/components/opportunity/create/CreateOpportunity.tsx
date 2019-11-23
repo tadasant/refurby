@@ -1,5 +1,4 @@
 import React from "react";
-import { OpportunityStep } from "../OpportunityView";
 import { FormGroup, TextArea, NumericInput } from "@blueprintjs/core";
 import { Opportunity } from "../../../types";
 import { INDUSTRY, DEGREES, US_STATE } from "../../../constants";
@@ -8,7 +7,6 @@ import _ from "lodash";
 interface Props {
 	opportunity: Opportunity;
 	setOpportunity: (opportunity: Opportunity) => void;
-	setStep: (step: OpportunityStep) => void;
 }
 
 const CreateOpportunity: React.FC<Props> = props => {
