@@ -33,6 +33,7 @@ const OpportunityView: React.FC<RouterProps> = props => {
 						sendAnonymously={sendAnonymously}
 						setSendAnonymously={setSendAnonymously}
 						opportunity={opportunity}
+						setStep={setStep}
 					/>
 				)}
 			</div>

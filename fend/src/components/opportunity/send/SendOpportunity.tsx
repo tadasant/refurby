@@ -2,6 +2,7 @@ import React from "react";
 import { FormGroup, Checkbox, Button } from "@blueprintjs/core";
 import { Opportunity } from "../../../types";
 import { withRouter, RouteComponentProps } from "react-router";
+import { OpportunityStep } from "../OpportunityView";
 
 const IPhonePreview = require("../../../static/iphone.png");
 
@@ -9,13 +10,15 @@ interface Props extends RouteComponentProps<any> {
 	opportunity: Opportunity;
 	sendAnonymously: boolean;
 	setSendAnonymously: (value: boolean | ((value: boolean) => boolean)) => void;
+	setStep: (value: OpportunityStep) => void;
 }
 
 const SendOpportunity: React.FC<Props> = ({
 	opportunity,
 	sendAnonymously,
 	setSendAnonymously,
-	history
+	history,
+	setStep
 }) => {
 	const handleToggle = () => {
 		setSendAnonymously(prevState => !!!prevState);
@@ -28,8 +31,13 @@ const SendOpportunity: React.FC<Props> = ({
 			</FormGroup>
 			<img style={{ width: "500px" }} src={IPhonePreview} alt="convo" />
 			<Button
+				intent="none"
+				text="Back"
+				onClick={() => setStep(OpportunityStep.MATCH)}
+			/>
+			<Button
 				intent="primary"
-				text="Preview Broadcast"
+				text="Send Broadcast via SMS"
 				onClick={() => history.push("/dashboard")}
 			/>
 		</div>

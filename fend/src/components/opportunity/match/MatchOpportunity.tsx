@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Intent, Callout, Icon, Colors, Button } from "@blueprintjs/core";
+import {
+	Intent,
+	Callout,
+	Icon,
+	Colors,
+	Button,
+	Divider
+} from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { Match } from "../../../types";
 import Matches from "../../../data/matches";
@@ -71,12 +78,14 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 					))}
 				</tbody>
 			</table>
+			<Divider className="matches__button-divider" />
 			<Button
 				intent="none"
 				text="Back"
-				onClick={() => setStep(OpportunityStep.MATCH)}
+				onClick={() => setStep(OpportunityStep.CREATE)}
 			/>
 			<Button
+				className="preview-button"
 				intent="primary"
 				text="Preview Broadcast"
 				onClick={() => setStep(OpportunityStep.CONFIRM)}
