@@ -3,6 +3,7 @@ import { FormGroup, Checkbox, Button } from "@blueprintjs/core";
 import { Opportunity } from "../../../types";
 import { withRouter, RouteComponentProps } from "react-router";
 import { OpportunityStep } from "../OpportunityView";
+import Toaster from "../../toaster";
 
 const IPhonePreview = require("../../../static/iphone.png");
 
@@ -38,7 +39,10 @@ const SendOpportunity: React.FC<Props> = ({
 			<Button
 				intent="primary"
 				text="Send Broadcast via SMS"
-				onClick={() => history.push("/dashboard")}
+				onClick={() => {
+					Toaster.show({ message: "Successfully broadcasted!  " });
+					history.push("/dashboard");
+				}}
 			/>
 		</div>
 	);
