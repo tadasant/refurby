@@ -1,9 +1,9 @@
 import React from "react";
 import "./Welcome.scss";
 import { withRouter, RouterProps } from "react-router";
-import LandingSvg from "../../images/landing.svg";
 
 const LinkedInButton = require("../../images/linked-in-button.png");
+const LandingSvg = require("../../images/landing.png");
 
 const Welcome: React.FC<RouterProps> = props => {
 	return (
