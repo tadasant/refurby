@@ -78,16 +78,16 @@ const MatchListItem: React.FC<Match & {
 			<td>{name}</td>
 			<td className="centerable-cell">{degree}</td>
 			<td className="centerable-cell">
-				<Icon icon="endorsed" color={Colors.BLUE5} />
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
 			</td>
 			<td className="centerable-cell">
-				<Icon icon="endorsed" color={Colors.BLUE5} />
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
 			</td>
 			<td className="centerable-cell">
-				<Icon icon="endorsed" color={Colors.BLUE5} />
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
 			</td>
 			<td className="centerable-cell">
-				<Icon icon="endorsed" color={Colors.BLUE5} />
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
 			</td>
 			<td className="checkbox-cell">
 				<Checkbox
