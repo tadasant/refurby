@@ -16,21 +16,21 @@ def index():
 
 @app.route('/send_opp', methods=['GET', 'POST'])
 def send_opp():
-		user_id = request.args.get("user_id", 1, type=int)
+		data = request.json
+		user_id = data["user_id"]
 		user = User.query.filter_by(id=user_id).first()
 		from_number = user.phone_number
 
-		receiver_ids = json.loads(request.args.get("receiver_ids"))
+		receiver_ids = data["receiver_ids"]
 		receiver_users = User.query.filter(User.id.in_(receiver_ids)).all()
 
-		opp = json.loads(request.args.get("opp"))
+		opp = data["opp"]
 		message_contents = get_message_contents(opp)
 
 		for receiver in receiver_users:
 				for message in message_contents:
 						send_sms(from_number, receiver.phone_number, message_contents)
 						print("sending message(s) %s from %s to %s" %  (message_contents, from_number, receiver.phone_number))
-						pass
 		return 'Messages were sent!'
 
 
@@ -39,7 +39,7 @@ def find_matches():
 		user_id = request.args.get("user_id", 1, type=int)
 		opp = json.loads(request.args.get("opp"))
 		user = User.query.filter_by(id=user_id).first()
-		friends_of_friends = user.friends_of_friends()
+		friends_of_friends = user.all_second_degree_connections()
 		matches = generate_matches(friends_of_friends, opp)
 		matches_data = [
 			{

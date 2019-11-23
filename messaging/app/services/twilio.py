@@ -8,7 +8,8 @@ class TwilioClient:
         self.client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
     def get_twilio_number(self):
-        return '+19548004479'
+        # return '+19548004479'
+        return '+12673231526'
 
     def send_sms(self, from_number: str, to_number: str, body: str) -> str:
         message = self.client.messages.create(
