@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Opportunity from "./components/opportunity/OpportunityView";
 import "./App.scss";
+import Welcome from "./components/welcome/Welcome";
+import DashboardView from "./components/dashboard/DashboardView";
 
 const App: React.FC = () => {
 	return (
@@ -9,9 +11,12 @@ const App: React.FC = () => {
 			<header></header>
 			<Router>
 				<Switch>
-					<Route path="/welcome">{/* <Welcome/> */}</Route>
-					<Route path="/dashboard">{/* <Dashboard/> */}</Route>
-					<Route path="/contacts">{/* <Contacts /> */}</Route>
+					<Route exact path="/">
+						<Welcome />
+					</Route>
+					<Route path="/dashboard">
+						<DashboardView />
+					</Route>
 					<Route path="/opportunity">
 						<Opportunity />
 					</Route>

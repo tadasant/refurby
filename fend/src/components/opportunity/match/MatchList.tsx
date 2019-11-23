@@ -2,7 +2,7 @@ import React from "react";
 import { Intent, Callout, Icon, Colors } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { Match } from "../../../types";
-import { Matches } from "../../../constants";
+import Matches from "../../../data/matches";
 
 const MatchListHeader: React.FC = () => {
 	return (
