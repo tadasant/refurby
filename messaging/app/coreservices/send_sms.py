@@ -1,8 +1,8 @@
-from messaging.app.requests.send_sms_request import SendSmsRequest
-from messaging.app.requests.redirect_sms_request import RedirectSmsRequest
-from messaging.app.coreservices.switchboard import add_to_switchboard
-from messaging.app.db import get_switchboard_mapping
-from messaging.app.services.twilio import twilio_client
+from app.requests.send_sms_request import SendSmsRequest
+from app.requests.redirect_sms_request import RedirectSmsRequest
+from app.coreservices.switchboard import add_to_switchboard
+from app.db import get_switchboard_mapping
+from app.services.twilio import twilio_client
 
 
 def send_sms(req: SendSmsRequest) -> str:

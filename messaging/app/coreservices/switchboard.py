@@ -1,5 +1,5 @@
-from messaging.app.db import add_switchboard_mapping
-from messaging.app.services.twilio import twilio_client
+from app.db import add_switchboard_mapping
+from app.services.twilio import twilio_client
 
 
 def add_to_switchboard(from_number: str, to_number: str) -> str:

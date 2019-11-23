@@ -1,6 +1,6 @@
 from twilio.rest import Client
-from messaging.app.settings import ACCOUNT_SID
-from messaging.app.settings import AUTH_TOKEN
+from app.settings import ACCOUNT_SID
+from app.settings import AUTH_TOKEN
 
 
 class TwilioClient:
