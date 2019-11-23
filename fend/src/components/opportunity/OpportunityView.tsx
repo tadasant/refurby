@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter, RouterProps } from "react-router";
+import { withRouter, RouteComponentProps } from "react-router";
 import CreateOpportunity from "./create/CreateOpportunity";
 import MatchList from "./match/MatchOpportunity";
 import { Opportunity } from "../../types";
@@ -13,7 +13,11 @@ export enum OpportunityStep {
 	CONFIRM
 }
 
-const OpportunityView: React.FC<RouterProps> = props => {
+interface Props extends RouteComponentProps {
+	setOpportunities: React.Dispatch<React.SetStateAction<Opportunity[]>>;
+}
+
+const OpportunityView: React.FC<Props> = props => {
 	const [opportunity, setOpportunity] = useState<Opportunity>({});
 	const [step, setStep] = useState<OpportunityStep>(OpportunityStep.CREATE);
 	const [sendAnonymously, setSendAnonymously] = useState<boolean>(true);
@@ -44,6 +48,7 @@ const OpportunityView: React.FC<RouterProps> = props => {
 						setStep={setStep}
 						chosenRecipientIds={chosenRecipientIds}
 						matches={MATCHES}
+						setOpportunities={props.setOpportunities}
 					/>
 				)}
 			</div>

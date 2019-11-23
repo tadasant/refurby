@@ -178,7 +178,7 @@ const MatchOpportunity: React.FC<Props> = ({
 						{randomUsers.map(randomUser => (
 							<MatchListItem
 								setChosenRecipientIds={setChosenRecipientIds}
-								id={parseInt(randomUser.id.value)}
+								id={parseInt(randomUser.id.value) * 10}
 								degree={Math.ceil(Math.random() * 2)}
 								imageUrl={randomUser.picture.medium}
 								name={`${_.upperFirst(randomUser.name.first)} ${_.upperFirst(

@@ -25,6 +25,7 @@ interface Props extends RouteComponentProps<any> {
 	setStep: (value: OpportunityStep) => void;
 	chosenRecipientIds: number[];
 	matches: Match[];
+	setOpportunities: React.Dispatch<React.SetStateAction<Opportunity[]>>;
 }
 
 const SendOpportunity: React.FC<Props> = ({
@@ -34,7 +35,8 @@ const SendOpportunity: React.FC<Props> = ({
 	history,
 	setStep,
 	chosenRecipientIds,
-	matches
+	matches,
+	setOpportunities
 }) => {
 	const [loadingTimerIsSet, setLoadingTimerIsSet] = useState<boolean>(false);
 
@@ -45,18 +47,32 @@ const SendOpportunity: React.FC<Props> = ({
 	const handleSubmit = () => {
 		async function sendTexts() {
 			// await fetch("url", {
-			//   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			//   headers: {
-			//     'Content-Type': 'application/json'
-			//     // 'Content-Type': 'application/x-www-form-urlencoded',
-			//   },
-			//   body: JSON.stringify(opportunity) // body data type must match "Content-Type" header
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/json"
+			// 	},
+			// 	body: JSON.stringify({
+			// 		...opportunity
+			// 	}) // body data type must match "Content-Type" header
 			// });
 		}
 		sendTexts();
 		setLoadingTimerIsSet(true);
 		setTimeout(() => {
 			Toaster.show({ message: "Successful broadcast!", intent: "success" });
+			setOpportunities(opportunities => [
+				...opportunities,
+				{
+					...opportunity,
+					stats: {
+						conversations: 0,
+						lastSent: new Date(),
+						moneyMade: "$0",
+						outgoing: chosenRecipientIds.length,
+						referrals: 0
+					}
+				}
+			]);
 			history.push("/dashboard");
 		}, 2500 + Math.random() * 1000);
 	};
