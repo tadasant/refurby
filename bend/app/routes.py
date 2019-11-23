@@ -29,7 +29,7 @@ def send_opp():
 
 		for receiver in receiver_users:
 				for message in message_contents:
-						send_sms(from_number, receiver.phone_number, message_contents)
+						send_sms(from_number, receiver.phone_number, message)
 						print("sending message(s) %s from %s to %s" %  (message_contents, from_number, receiver.phone_number))
 		return 'Messages were sent!'
 

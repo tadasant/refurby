@@ -12,12 +12,12 @@ import {
 	Spinner
 } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
-import { Match } from "../../../types";
-import Matches from "../../../data/matches";
+import { Match, Opportunity } from "../../../types";
 import { OpportunityStep } from "../OpportunityView";
 import "./MatchOpportunity.scss";
 import _ from "lodash";
 import ActionBar from "../ActionBar";
+import { NGROK_URL } from "../../../constants";
 
 const WhiteFurby = require("../../../images/furby-white.png");
 
@@ -100,12 +100,14 @@ interface Props {
 	setStep: (step: OpportunityStep) => void;
 	chosenRecipientIds: number[];
 	setChosenRecipientIds: React.Dispatch<React.SetStateAction<number[]>>;
+	opportunity: Opportunity;
 }
 
 const MatchOpportunity: React.FC<Props> = ({
 	setStep,
 	setChosenRecipientIds,
-	chosenRecipientIds
+	chosenRecipientIds,
+	opportunity
 }) => {
 	const [matches, setMatches] = useState<Match[]>([]);
 	const [randomUsers, setRandomUsers] = useState<RandomUser[]>([]);
@@ -113,26 +115,37 @@ const MatchOpportunity: React.FC<Props> = ({
 
 	useEffect(() => {
 		async function getMatches() {
-			// FIXME datafetching
-			// const result = await fetch("url", {
-			//   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			//   headers: {
-			//     'Content-Type': 'application/json'
-			//     // 'Content-Type': 'application/x-www-form-urlencoded',
-			//   },
-			//   body: JSON.stringify(opportunity) // body data type must match "Content-Type" header
-			// }).json();
-			const result = await Promise.resolve(Matches);
-			setMatches(result);
+			const result: { connections: Match[] } = await fetch(
+				`${NGROK_URL}/find_matches`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						user_id: 1,
+						opp: {
+							industry: opportunity.industry,
+							min_years_experience: opportunity.minYearsExperience,
+							location_city: opportunity.locationCity,
+							location_state: opportunity.locationState,
+							highest_level_of_education: opportunity.highestLevelOfEducation,
+							blurb: opportunity.blurb,
+							title: opportunity.title
+						}
+					})
+				}
+			).then(response => response.json());
+			setMatches(result.connections);
 			setChosenRecipientIds(
-				result
+				result.connections
 					.filter(result => result.matchScore && result.matchScore > 50)
 					.map(result => result.id)
 			);
 		}
 
 		getMatches();
-	}, [setChosenRecipientIds]);
+	}, [setChosenRecipientIds, opportunity]);
 
 	useEffect(() => {
 		async function getRandomUsers() {

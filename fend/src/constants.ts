@@ -210,3 +210,5 @@ export const THEME_COLORS = [
 	"#4B6AB2",
 	"#1F4B99"
 ];
+
+export const NGROK_URL = "http://75676b17.ngrok.io";

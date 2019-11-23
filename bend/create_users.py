@@ -39,13 +39,19 @@ def create_users():
         ),
         User(
             id=5,
-            email='adrian@gmail.com',
+            email='morgan@gmail.com',
             name='Morgan',
             city='San Francisco',
             current_position='Software Engineer',
             phone_number='+4848899913',
         ),
     ]
+
+    users[0].befriend(users[1])
+    users[1].befriend(users[2])
+    users[2].befriend(users[3])
+    users[3].befriend(users[4])
+
     for user in users:
         db.session.add(user)
     db.session.commit()
