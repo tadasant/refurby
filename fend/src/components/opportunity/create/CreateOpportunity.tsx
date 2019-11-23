@@ -13,17 +13,19 @@ import { INDUSTRY, DEGREES, US_STATE } from "../../../constants";
 import _ from "lodash";
 import { OpportunityStep } from "../OpportunityView";
 import "./CreateOpportunity.scss";
+import ActionBar from "../ActionBar";
+import { withRouter, RouteComponentProps } from "react-router";
 
 const WhiteFurby = require("../../../images/furby-white.png");
 
-interface Props {
+interface Props extends RouteComponentProps {
 	opportunity: Opportunity;
 	setOpportunity: (opportunity: Opportunity) => void;
 	setStep: (step: OpportunityStep) => void;
 }
 
 const CreateOpportunity: React.FC<Props> = props => {
-	const { opportunity, setOpportunity, setStep } = props;
+	const { opportunity, setOpportunity, setStep, history } = props;
 
 	const generateFieldChange = (
 		field: keyof Opportunity
@@ -114,14 +116,21 @@ const CreateOpportunity: React.FC<Props> = props => {
 					</select>
 				</FormGroup>
 			</Card>
-			<Button
-				className="choose-recipients-button"
-				intent="primary"
-				text="Choose Recipients"
-				onClick={() => setStep(OpportunityStep.MATCH)}
-			/>
+			<ActionBar>
+				<Button
+					intent="none"
+					text="Cancel"
+					onClick={() => history.push("/dashboard")}
+				/>
+				<Button
+					className="choose-recipients-button"
+					intent="primary"
+					text="Choose Recipients"
+					onClick={() => setStep(OpportunityStep.MATCH)}
+				/>
+			</ActionBar>
 		</React.Fragment>
 	);
 };
 
-export default CreateOpportunity;
+export default withRouter(CreateOpportunity);

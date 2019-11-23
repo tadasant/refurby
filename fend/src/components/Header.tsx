@@ -8,7 +8,12 @@ const Header: React.FC<RouterProps> = ({ history }) => {
 		<Navbar className="header">
 			<Navbar.Group align={Alignment.LEFT}>
 				<Navbar.Heading>
-					<img className="header__logo" src={RefurbyLogo} alt="furby logo" />
+					<img
+						className="header__logo"
+						src={RefurbyLogo}
+						alt="furby logo"
+						onClick={() => history.push("/")}
+					/>
 				</Navbar.Heading>
 				<button className="bp3-button bp3-minimal nav-button">
 					<Icon icon="people" color={Colors.WHITE} />

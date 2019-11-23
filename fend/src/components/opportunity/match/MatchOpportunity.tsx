@@ -7,7 +7,8 @@ import {
 	Button,
 	Divider,
 	Elevation,
-	Card
+	Card,
+	Checkbox
 } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { Match } from "../../../types";
@@ -15,6 +16,7 @@ import Matches from "../../../data/matches";
 import { OpportunityStep } from "../OpportunityView";
 import "./MatchOpportunity.scss";
 import _ from "lodash";
+import ActionBar from "../ActionBar";
 
 const WhiteFurby = require("../../../images/furby-white.png");
 
@@ -25,6 +27,7 @@ const MatchListHeader: React.FC = () => {
 				<th>&nbsp;</th>
 				<th>Name</th>
 				<th>1st / 2nd Degree</th>
+				<th className="checkbox-cell">Send?</th>
 			</tr>
 		</thead>
 	);
@@ -49,6 +52,9 @@ const MatchListItem: React.FC<Match> = props => {
 			</td>
 			<td>{name}</td>
 			<td>{degree}</td>
+			<td className="checkbox-cell">
+				<Checkbox checked={endorsed} />
+			</td>
 		</tr>
 	);
 };
@@ -127,18 +133,20 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 				<Divider className="matches__button-divider" />
 			</Card>
 
-			<Button
-				intent="none"
-				text="Back"
-				onClick={() => setStep(OpportunityStep.CREATE)}
-			/>
+			<ActionBar>
+				<Button
+					intent="none"
+					text="Back"
+					onClick={() => setStep(OpportunityStep.CREATE)}
+				/>
 
-			<Button
-				className="preview-button"
-				intent="primary"
-				text="Preview Broadcast"
-				onClick={() => setStep(OpportunityStep.CONFIRM)}
-			/>
+				<Button
+					className="preview-button"
+					intent="primary"
+					text="Preview Broadcast"
+					onClick={() => setStep(OpportunityStep.CONFIRM)}
+				/>
+			</ActionBar>
 		</div>
 	);
 };

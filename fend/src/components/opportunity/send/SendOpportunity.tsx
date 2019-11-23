@@ -11,6 +11,7 @@ import { withRouter, RouteComponentProps } from "react-router";
 import { OpportunityStep } from "../OpportunityView";
 import Toaster from "../../toaster";
 import "./SendOpportunity.scss";
+import ActionBar from "../ActionBar";
 
 const IPhonePreview = require("../../../static/iphone.png");
 const WhiteFurby = require("../../../images/furby-white.png");
@@ -61,18 +62,19 @@ const SendOpportunity: React.FC<Props> = ({
 					<Checkbox checked={sendAnonymously} onChange={handleToggle} />
 				</FormGroup>
 				<img className="preview-convo" src={IPhonePreview} alt="convo" />
+			</Card>
+			<ActionBar>
 				<Button
-					className="send-button"
+					intent="none"
+					text="Back"
+					onClick={() => setStep(OpportunityStep.MATCH)}
+				/>
+				<Button
 					intent="primary"
 					text="Send Broadcast via SMS"
 					onClick={handleSubmit}
 				/>
-			</Card>
-			<Button
-				intent="none"
-				text="Back"
-				onClick={() => setStep(OpportunityStep.MATCH)}
-			/>
+			</ActionBar>
 		</div>
 	);
 };
