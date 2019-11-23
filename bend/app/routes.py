@@ -4,7 +4,7 @@ from flask import request, jsonify
 
 from app import app
 from app.models import User
-from app.scorer import generate_matches
+# from app.scorer import generate_matches
 from app.sms_content import get_message_contents
 from app.messaging import send_sms
 
