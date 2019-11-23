@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { withRouter, RouterProps } from "react-router";
+import { withRouter, RouteComponentProps } from "react-router";
 import CreateOpportunity from "./create/CreateOpportunity";
 import MatchList from "./match/MatchOpportunity";
 import { Opportunity } from "../../types";
 import SendOpportunity from "./send/SendOpportunity";
 import "./Opportunity.scss";
+import MATCHES from "../../data/matches";
 
 export enum OpportunityStep {
 	CREATE,
@@ -12,10 +13,15 @@ export enum OpportunityStep {
 	CONFIRM
 }
 
-const OpportunityView: React.FC<RouterProps> = props => {
+interface Props extends RouteComponentProps {
+	setOpportunities: React.Dispatch<React.SetStateAction<Opportunity[]>>;
+}
+
+const OpportunityView: React.FC<Props> = props => {
 	const [opportunity, setOpportunity] = useState<Opportunity>({});
 	const [step, setStep] = useState<OpportunityStep>(OpportunityStep.CREATE);
 	const [sendAnonymously, setSendAnonymously] = useState<boolean>(true);
+	const [chosenRecipientIds, setChosenRecipientIds] = useState<number[]>([]);
 
 	return (
 		<div className="opportunity__outer-container">
@@ -27,13 +33,22 @@ const OpportunityView: React.FC<RouterProps> = props => {
 						setStep={setStep}
 					/>
 				)}
-				{step === OpportunityStep.MATCH && <MatchList setStep={setStep} />}
+				{step === OpportunityStep.MATCH && (
+					<MatchList
+						chosenRecipientIds={chosenRecipientIds}
+						setChosenRecipientIds={setChosenRecipientIds}
+						setStep={setStep}
+					/>
+				)}
 				{step === OpportunityStep.CONFIRM && (
 					<SendOpportunity
 						sendAnonymously={sendAnonymously}
 						setSendAnonymously={setSendAnonymously}
 						opportunity={opportunity}
 						setStep={setStep}
+						chosenRecipientIds={chosenRecipientIds}
+						matches={MATCHES}
+						setOpportunities={props.setOpportunities}
 					/>
 				)}
 			</div>

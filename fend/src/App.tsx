@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Opportunity from "./components/opportunity/OpportunityView";
 import "./App.scss";
 import Welcome from "./components/welcome/Welcome";
 import DashboardView from "./components/dashboard/DashboardView";
 import Header from "./components/Header";
+import { Opportunity as OpportunityType } from "./types";
+import OPPORTUNITIES from "./data/opportunities";
 
 const App: React.FC = () => {
+	const [opportunities, setOpportunities] = useState<OpportunityType[]>(
+		OPPORTUNITIES
+	);
 	return (
 		<div className="appWrapper">
 			<Router>
@@ -16,11 +21,11 @@ const App: React.FC = () => {
 					</Route>
 					<Route path="/dashboard">
 						<Header />
-						<DashboardView />
+						<DashboardView opportunities={opportunities} />
 					</Route>
 					<Route path="/opportunity">
 						<Header />
-						<Opportunity />
+						<Opportunity setOpportunities={setOpportunities} />
 					</Route>
 				</Switch>
 			</Router>

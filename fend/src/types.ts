@@ -6,10 +6,17 @@ export interface Opportunity {
 	highestLevelOfEducation?: string;
 	blurb?: string;
 	title?: string;
+	stats?: {
+		referrals: number;
+		conversations: number;
+		outgoing: number;
+		lastSent: Date;
+		moneyMade: string;
+	};
 }
 
 export interface Match {
-	id?: number;
+	id: number;
 	name: string;
 	degree: number;
 	linkedInUrl?: string;

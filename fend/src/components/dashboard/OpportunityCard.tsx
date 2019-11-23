@@ -3,6 +3,7 @@ import { Card, Elevation, Tag } from "@blueprintjs/core";
 import { Opportunity } from "../../types";
 import _ from "lodash";
 import "./OpportunityCard.scss";
+import moment from "moment";
 
 interface Props {
 	opportunity: Opportunity;
@@ -35,35 +36,35 @@ const OpportunityCard: React.FC<Props> = ({ opportunity, className }) => {
 			<div className="opportunity_card__column2">
 				<div className="opportunity_card__stat">
 					<h3>
-						<b>3</b>
+						<b>{opportunity.stats!.referrals}</b>
 					</h3>
 					<p className="subtitle">Successful Referrals</p>
 				</div>
 
 				<div className="opportunity_card__stat">
 					<h3>
-						<b>15</b>
+						<b>{opportunity.stats!.conversations}</b>
 					</h3>
 					<p className="subtitle">Conversations Started</p>
 				</div>
 
 				<div className="opportunity_card__stat">
 					<h3>
-						<b>291</b>
+						<b>{opportunity.stats!.outgoing}</b>
 					</h3>
 					<p className="subtitle">SMS Outgoing</p>
 				</div>
 
 				<div className="opportunity_card__stat">
 					<h3>
-						<b>11:27AM on 11/21/19</b>
+						<b>{moment(opportunity.stats!.lastSent).format("MM/DD/YYYY")}</b>
 					</h3>
 					<p className="subtitle">Last Broadcast</p>
 				</div>
 			</div>
 			<div className="opportunity_card__column3">
 				<div className="opportunity_card__column3__container">
-					<h1>$9,000</h1>
+					<h1>{opportunity.stats!.moneyMade}</h1>
 					<p className="subtitle">earned to date</p>
 				</div>
 			</div>

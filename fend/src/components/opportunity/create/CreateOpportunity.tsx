@@ -79,6 +79,7 @@ const CreateOpportunity: React.FC<Props> = props => {
 						onChange={generateFieldChange("locationState")}
 						value={opportunity.locationState}
 					>
+						<option />
 						{US_STATE.map(usState => (
 							<option>{_.upperFirst(_.toLower(usState))}</option>
 						))}
@@ -90,6 +91,7 @@ const CreateOpportunity: React.FC<Props> = props => {
 						onChange={generateFieldChange("industry")}
 						value={opportunity.industry}
 					>
+						<option />
 						{INDUSTRY.map(industry => (
 							<option>{industry}</option>
 						))}
@@ -108,8 +110,9 @@ const CreateOpportunity: React.FC<Props> = props => {
 					<Label>Highest Education</Label>
 					<select
 						onChange={generateFieldChange("highestLevelOfEducation")}
-						value={opportunity.industry}
+						value={opportunity.highestLevelOfEducation}
 					>
+						<option />
 						{DEGREES.map(degree => (
 							<option>{degree}</option>
 						))}

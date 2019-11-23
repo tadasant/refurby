@@ -12,7 +12,7 @@ const MATCHES: Match[] = [
 		matchFields: ["industry"]
 	},
 	{
-		id: 1,
+		id: 2,
 		name: "Tadas Antanavicius",
 		degree: 1,
 		linkedInUrl: "https://www.linkedin.com/in/antanavicius/",
@@ -22,7 +22,7 @@ const MATCHES: Match[] = [
 		matchFields: ["education", "location"]
 	},
 	{
-		id: 4,
+		id: 3,
 		name: "Adrian Lievano",
 		degree: 2,
 		linkedInUrl: "https://www.linkedin.com/in/adrianlievano/",
@@ -32,7 +32,7 @@ const MATCHES: Match[] = [
 		matchFields: ["experience"]
 	},
 	{
-		id: 2,
+		id: 4,
 		name: "Morgan Snyder",
 		degree: 2,
 		linkedInUrl: "https://www.linkedin.com/in/mosnyder/",
@@ -42,7 +42,7 @@ const MATCHES: Match[] = [
 		matchFields: ["education", "location"]
 	},
 	{
-		id: 3,
+		id: 5,
 		name: "Andrew Li",
 		degree: 1,
 		linkedInUrl: "https://www.linkedin.com/in/andrewli1030/",
@@ -52,7 +52,7 @@ const MATCHES: Match[] = [
 		matchFields: ["location"]
 	},
 	{
-		id: 5,
+		id: 6,
 		name: "Dennis Sell",
 		degree: 2,
 		linkedInUrl: "https://www.linkedin.com/in/selld/",

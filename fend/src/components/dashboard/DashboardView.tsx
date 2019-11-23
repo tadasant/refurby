@@ -1,11 +1,15 @@
 import React from "react";
 import { Button } from "@blueprintjs/core";
-import { RouterProps, withRouter } from "react-router";
-import OPPORTUNITIES from "../../data/opportunities";
+import { withRouter, RouteComponentProps } from "react-router";
 import OpportunityCard from "./OpportunityCard";
 import "./Dashboard.scss";
+import { Opportunity } from "../../types";
 
-const DashboardView: React.FC<RouterProps> = props => {
+interface Props extends RouteComponentProps {
+	opportunities: Opportunity[];
+}
+
+const DashboardView: React.FC<Props> = props => {
 	const { history } = props;
 	return (
 		<div className="dashboard__outer-container">
@@ -20,7 +24,7 @@ const DashboardView: React.FC<RouterProps> = props => {
 						intent="primary"
 					/>
 				</h3>
-				{OPPORTUNITIES.map((opportunity, i) => (
+				{props.opportunities.map((opportunity, i) => (
 					<OpportunityCard
 						key={`opportunity_${i}`}
 						opportunity={opportunity}

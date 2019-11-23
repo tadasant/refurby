@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	FormGroup,
 	Checkbox,
 	Button,
 	Card,
-	Elevation
+	Elevation,
+	Icon,
+	Spinner
 } from "@blueprintjs/core";
-import { Opportunity } from "../../../types";
+import { Opportunity, Match } from "../../../types";
 import { withRouter, RouteComponentProps } from "react-router";
 import { OpportunityStep } from "../OpportunityView";
 import Toaster from "../../toaster";
@@ -21,6 +23,9 @@ interface Props extends RouteComponentProps<any> {
 	sendAnonymously: boolean;
 	setSendAnonymously: (value: boolean | ((value: boolean) => boolean)) => void;
 	setStep: (value: OpportunityStep) => void;
+	chosenRecipientIds: number[];
+	matches: Match[];
+	setOpportunities: React.Dispatch<React.SetStateAction<Opportunity[]>>;
 }
 
 const SendOpportunity: React.FC<Props> = ({
@@ -28,8 +33,13 @@ const SendOpportunity: React.FC<Props> = ({
 	sendAnonymously,
 	setSendAnonymously,
 	history,
-	setStep
+	setStep,
+	chosenRecipientIds,
+	matches,
+	setOpportunities
 }) => {
+	const [loadingTimerIsSet, setLoadingTimerIsSet] = useState<boolean>(false);
+
 	const handleToggle = () => {
 		setSendAnonymously(prevState => !!!prevState);
 	};
@@ -37,18 +47,45 @@ const SendOpportunity: React.FC<Props> = ({
 	const handleSubmit = () => {
 		async function sendTexts() {
 			// await fetch("url", {
-			//   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			//   headers: {
-			//     'Content-Type': 'application/json'
-			//     // 'Content-Type': 'application/x-www-form-urlencoded',
-			//   },
-			//   body: JSON.stringify(opportunity) // body data type must match "Content-Type" header
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/json"
+			// 	},
+			// 	body: JSON.stringify({
+			// 		...opportunity
+			// 	}) // body data type must match "Content-Type" header
 			// });
 		}
 		sendTexts();
-		Toaster.show({ message: "Successful broadcast!", intent: "success" });
-		history.push("/dashboard");
+		setLoadingTimerIsSet(true);
+		setTimeout(() => {
+			Toaster.show({ message: "Successful broadcast!", intent: "success" });
+			setOpportunities(opportunities => [
+				...opportunities,
+				{
+					...opportunity,
+					stats: {
+						conversations: 0,
+						lastSent: new Date(),
+						moneyMade: "$0",
+						outgoing: chosenRecipientIds.length,
+						referrals: 0
+					}
+				}
+			]);
+			history.push("/dashboard");
+		}, 2500 + Math.random() * 1000);
 	};
+
+	if (loadingTimerIsSet) {
+		return (
+			<div>
+				<img className="peeking-furby" src={WhiteFurby} alt="white-furby" />
+				<Spinner intent="success" className="central-spinner" />
+				<h4>Distributing SMS...</h4>
+			</div>
+		);
+	}
 
 	return (
 		<div>
@@ -62,6 +99,18 @@ const SendOpportunity: React.FC<Props> = ({
 					<Checkbox checked={sendAnonymously} onChange={handleToggle} />
 				</FormGroup>
 				<img className="preview-convo" src={IPhonePreview} alt="convo" />
+				<Icon className="arrow-icon" icon="arrow-down" />
+				<div className="recipients-icons">
+					{chosenRecipientIds.map(id => (
+						<div>
+							<img
+								alt="person"
+								className="match-name"
+								src={matches.find(match => match.id === id)!.imageUrl}
+							/>
+						</div>
+					))}
+				</div>
 			</Card>
 			<ActionBar>
 				<Button
