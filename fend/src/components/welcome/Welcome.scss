@@ -12,3 +12,17 @@
 .linkedin-button {
 	border-radius: 10%;
 }
+
+.landing-background {
+	width: 70vw;
+}
+
+.linked-in-button {
+	width: 200px;
+	box-shadow: 1px 2px 4px gray;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}

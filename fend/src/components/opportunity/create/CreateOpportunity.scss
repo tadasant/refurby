@@ -1,0 +1,39 @@
+@import "~@blueprintjs/core/lib/scss/variables";
+
+.peeking-furby {
+	width: 100px;
+	position: absolute;
+	z-index: -5;
+	margin-top: 24px;
+	left: calc(50vw - 50px);
+}
+
+.create-opportunity__card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	margin-top: 64px;
+	margin-bottom: 16px;
+	width: 40vw;
+}
+
+.action-bar > * {
+	justify-content: center !important;
+}
+
+.broadcast-header {
+	margin-top: 0px;
+	text-align: center;
+}
+
+.opportunity__input {
+	.bp3-form-content {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+
+		input {
+			grid-column-start: 2;
+		}
+	}
+}

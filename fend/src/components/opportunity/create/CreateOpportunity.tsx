@@ -1,16 +1,31 @@
 import React from "react";
-import { FormGroup, TextArea, NumericInput } from "@blueprintjs/core";
+import {
+	FormGroup,
+	TextArea,
+	NumericInput,
+	Button,
+	Label,
+	Card,
+	Elevation
+} from "@blueprintjs/core";
 import { Opportunity } from "../../../types";
 import { INDUSTRY, DEGREES, US_STATE } from "../../../constants";
 import _ from "lodash";
+import { OpportunityStep } from "../OpportunityView";
+import "./CreateOpportunity.scss";
+import ActionBar from "../ActionBar";
+import { withRouter, RouteComponentProps } from "react-router";
 
-interface Props {
+const WhiteFurby = require("../../../images/furby-white.png");
+
+interface Props extends RouteComponentProps {
 	opportunity: Opportunity;
 	setOpportunity: (opportunity: Opportunity) => void;
+	setStep: (step: OpportunityStep) => void;
 }
 
 const CreateOpportunity: React.FC<Props> = props => {
-	const { opportunity, setOpportunity } = props;
+	const { opportunity, setOpportunity, setStep, history } = props;
 
 	const generateFieldChange = (
 		field: keyof Opportunity
@@ -32,66 +47,90 @@ const CreateOpportunity: React.FC<Props> = props => {
 	};
 
 	return (
-		<div>
-			<h2>Broadcast New Opportunity</h2>
-			<FormGroup label="Title">
-				<input
-					type="text"
-					className="bp3-input"
-					onChange={generateFieldChange("title")}
-					value={opportunity.title}
+		<React.Fragment>
+			<img className="peeking-furby" src={WhiteFurby} alt="white-furby" />
+			<Card elevation={Elevation.THREE} className="create-opportunity__card">
+				<h2 className="broadcast-header">Broadcast New Opportunity</h2>
+				<FormGroup className="opportunity__input">
+					<Label>Title</Label>
+					<input
+						type="text"
+						className="bp3-input"
+						onChange={generateFieldChange("title")}
+						value={opportunity.title}
+					/>
+				</FormGroup>
+				<FormGroup className="opportunity__input">
+					<Label>Blurb</Label>
+					<TextArea onChange={generateFieldChange("blurb")} />
+				</FormGroup>
+				<FormGroup className="opportunity__input">
+					<Label>City</Label>
+					<input
+						type="text"
+						className="bp3-input"
+						onChange={generateFieldChange("locationCity")}
+						value={opportunity.locationCity}
+					/>
+				</FormGroup>
+				<FormGroup className="opportunity__input">
+					<Label>State</Label>
+					<select
+						onChange={generateFieldChange("locationState")}
+						value={opportunity.locationState}
+					>
+						{US_STATE.map(usState => (
+							<option>{_.upperFirst(_.toLower(usState))}</option>
+						))}
+					</select>
+				</FormGroup>
+				<FormGroup className="opportunity__input">
+					<Label>Industry</Label>
+					<select
+						onChange={generateFieldChange("industry")}
+						value={opportunity.industry}
+					>
+						{INDUSTRY.map(industry => (
+							<option>{industry}</option>
+						))}
+					</select>
+				</FormGroup>
+				<FormGroup className="opportunity__input">
+					<Label>Min. Years of Exp.</Label>
+					<NumericInput
+						className="min-yrs-exp-input"
+						onValueChange={handleExperienceChange}
+						value={opportunity.minYearsExperience}
+						min={0}
+					/>
+				</FormGroup>
+				<FormGroup className="opportunity__input">
+					<Label>Highest Education</Label>
+					<select
+						onChange={generateFieldChange("highestLevelOfEducation")}
+						value={opportunity.industry}
+					>
+						{DEGREES.map(degree => (
+							<option>{degree}</option>
+						))}
+					</select>
+				</FormGroup>
+			</Card>
+			<ActionBar>
+				<Button
+					intent="none"
+					text="Cancel"
+					onClick={() => history.push("/dashboard")}
 				/>
-			</FormGroup>
-			<FormGroup label="Blurb">
-				<TextArea onChange={generateFieldChange("blurb")} />
-			</FormGroup>
-			<FormGroup label="City">
-				<input
-					type="text"
-					className="bp3-input"
-					onChange={generateFieldChange("locationCity")}
-					value={opportunity.locationCity}
+				<Button
+					className="choose-recipients-button"
+					intent="primary"
+					text="Choose Recipients"
+					onClick={() => setStep(OpportunityStep.MATCH)}
 				/>
-			</FormGroup>
-			<FormGroup label="State">
-				<select
-					onChange={generateFieldChange("locationState")}
-					value={opportunity.locationState}
-				>
-					{US_STATE.map(usState => (
-						<option>{_.upperFirst(_.toLower(usState))}</option>
-					))}
-				</select>
-			</FormGroup>
-			<FormGroup label="Industry">
-				<select
-					onChange={generateFieldChange("industry")}
-					value={opportunity.industry}
-				>
-					{INDUSTRY.map(industry => (
-						<option>{industry}</option>
-					))}
-				</select>
-			</FormGroup>
-			<FormGroup label="Minimum Years of Experience">
-				<NumericInput
-					onValueChange={handleExperienceChange}
-					value={opportunity.minYearsExperience}
-					min={0}
-				/>
-			</FormGroup>
-			<FormGroup label="Minimum Education">
-				<select
-					onChange={generateFieldChange("highestLevelOfEducation")}
-					value={opportunity.industry}
-				>
-					{DEGREES.map(degree => (
-						<option>{degree}</option>
-					))}
-				</select>
-			</FormGroup>
-		</div>
+			</ActionBar>
+		</React.Fragment>
 	);
 };
 
-export default CreateOpportunity;
+export default withRouter(CreateOpportunity);

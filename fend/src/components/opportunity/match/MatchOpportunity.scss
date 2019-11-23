@@ -1,3 +1,28 @@
+@import "~@blueprintjs/core/lib/scss/variables";
+
+.peeking-furby {
+	width: 100px;
+	position: absolute;
+	z-index: -5;
+	margin-top: 24px;
+	left: calc(50vw - 50px);
+}
+
+.match-opportunity__card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	margin-top: 64px;
+	margin-bottom: 16px;
+	width: 70vw;
+}
+
+.match-header {
+	margin-top: 0px;
+	text-align: center;
+}
+
 .match-item {
 	padding: 10px 0;
 
@@ -5,5 +30,28 @@
 		border-radius: 50%;
 		width: 40px;
 		height: 40px;
+		box-shadow: 2px 1px 1px $gray3;
 	}
+}
+
+.preview-button {
+	float: right;
+}
+
+.matches__button-divider {
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+.match-item .img-cell {
+	text-align: center !important;
+
+	.endorsed-icon {
+		position: absolute;
+		margin-left: -4px;
+	}
+}
+
+.match-item .checkbox-cell {
+	text-align: center !important;
 }

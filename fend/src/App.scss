@@ -1,3 +1,49 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
-@import "./components/opportunity/match/MatchOpportunity.scss";
+@import "~normalize.css/normalize.css";
+@import "~@blueprintjs/core/lib/scss/variables";
+
+$lighter-blue: #b3cfff;
+$light-blue: #91ace5;
+$blue: #6f8acb;
+$dark-blue: #4b6ab2;
+$darker-blue: #1f4b99;
+
+// use $dark-gray1, $dark-gray2, etc. for text
+
+.appWrapper {
+	margin-bottom: 64px;
+}
+
+.header {
+	height: 45px;
+	background-color: $darker-blue;
+	box-shadow: 1px 2px 5px $dark-gray3;
+	cursor: pointer;
+}
+
+.header__logo {
+	padding: 8px;
+	padding-left: 16px;
+	height: 45px;
+}
+
+.nav-button {
+	margin-right: 16px;
+}
+
+.navbar-text {
+	color: $white;
+}
+
+body {
+	background-color: $light-gray4;
+}
+
+h2 {
+	color: $dark-gray2;
+}
+
+label {
+	color: $dark-gray2;
+}
