@@ -21,3 +21,9 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# flask
+bend/venv
+bend/migrations
+bend/app.db
+__pycache__
