@@ -56,7 +56,14 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 	useEffect(() => {
 		async function getMatches() {
 			// FIXME datafetching
-			// const result = await fetch("https://hn.algolia.com/api/v1/search?query=redux");
+			// const result = await fetch("url", {
+			//   method: 'POST', // *GET, POST, PUT, DELETE, etc.
+			//   headers: {
+			//     'Content-Type': 'application/json'
+			//     // 'Content-Type': 'application/x-www-form-urlencoded',
+			//   },
+			//   body: JSON.stringify(opportunity) // body data type must match "Content-Type" header
+			// }).json();
 			const result = await Promise.resolve(Matches);
 			setMatches(result);
 		}

@@ -24,6 +24,23 @@ const SendOpportunity: React.FC<Props> = ({
 	const handleToggle = () => {
 		setSendAnonymously(prevState => !!!prevState);
 	};
+
+	const handleSubmit = () => {
+		async function sendTexts() {
+			// await fetch("url", {
+			//   method: 'POST', // *GET, POST, PUT, DELETE, etc.
+			//   headers: {
+			//     'Content-Type': 'application/json'
+			//     // 'Content-Type': 'application/x-www-form-urlencoded',
+			//   },
+			//   body: JSON.stringify(opportunity) // body data type must match "Content-Type" header
+			// });
+		}
+		sendTexts();
+		Toaster.show({ message: "Successful broadcast!", intent: "success" });
+		history.push("/dashboard");
+	};
+
 	return (
 		<div>
 			<h2>Preview</h2>
@@ -39,10 +56,7 @@ const SendOpportunity: React.FC<Props> = ({
 			<Button
 				intent="primary"
 				text="Send Broadcast via SMS"
-				onClick={() => {
-					Toaster.show({ message: "Successfully broadcasted!  " });
-					history.push("/dashboard");
-				}}
+				onClick={handleSubmit}
 			/>
 		</div>
 	);
