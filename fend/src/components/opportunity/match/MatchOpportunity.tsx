@@ -27,7 +27,11 @@ const MatchListHeader: React.FC = () => {
 			<tr className="match-item">
 				<th>&nbsp;</th>
 				<th>Name</th>
-				<th>1st / 2nd Degree</th>
+				<th className="centerable-cell">1st / 2nd Degree</th>
+				<th className="centerable-cell">Industry</th>
+				<th className="centerable-cell">Education</th>
+				<th className="centerable-cell">Location</th>
+				<th className="centerable-cell">Experience</th>
 				<th className="checkbox-cell">Send?</th>
 			</tr>
 		</thead>
@@ -72,7 +76,19 @@ const MatchListItem: React.FC<Match & {
 				)}
 			</td>
 			<td>{name}</td>
-			<td>{degree}</td>
+			<td className="centerable-cell">{degree}</td>
+			<td className="centerable-cell">
+				<Icon icon="endorsed" color={Colors.BLUE5} />
+			</td>
+			<td className="centerable-cell">
+				<Icon icon="endorsed" color={Colors.BLUE5} />
+			</td>
+			<td className="centerable-cell">
+				<Icon icon="endorsed" color={Colors.BLUE5} />
+			</td>
+			<td className="centerable-cell">
+				<Icon icon="endorsed" color={Colors.BLUE5} />
+			</td>
 			<td className="checkbox-cell">
 				<Checkbox
 					onChange={toggleCheckbox}
@@ -176,7 +192,8 @@ const MatchOpportunity: React.FC<Props> = ({
 			<Card elevation={Elevation.THREE} className="match-opportunity__card">
 				<h2 className="match-header">Opportunity Matches</h2>
 				<Callout intent={Intent.SUCCESS} icon={IconNames.ENDORSED}>
-					4 people in your network are recommended for this opportunity!
+					{matches.length} people in your network are recommended for this
+					opportunity!
 				</Callout>
 				<table className="bp3-html-table">
 					<MatchListHeader />
