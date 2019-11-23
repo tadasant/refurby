@@ -43,7 +43,7 @@ const MatchOpportunity: React.FC = props => {
 		<div>
 			<h2>Opportunity Matches</h2>
 			<Callout intent={Intent.SUCCESS} icon={IconNames.ENDORSED}>
-				42 people in your network are recommended for this opportunity!
+				4 people in your network are recommended for this opportunity!
 			</Callout>
 			<table className="bp3-html-table">
 				<MatchListHeader />

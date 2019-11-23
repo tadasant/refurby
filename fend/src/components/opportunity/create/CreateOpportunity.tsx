@@ -45,26 +45,6 @@ const CreateOpportunity: React.FC<Props> = props => {
 			<FormGroup label="Blurb">
 				<TextArea onChange={generateFieldChange("blurb")} />
 			</FormGroup>
-			<FormGroup label="Industry">
-				<select
-					onChange={generateFieldChange("industry")}
-					value={opportunity.industry}
-				>
-					{INDUSTRY.map(industry => (
-						<option>{industry}</option>
-					))}
-				</select>
-			</FormGroup>
-			<FormGroup label="Minimum Education">
-				<select
-					onChange={generateFieldChange("highestLevelOfEducation")}
-					value={opportunity.industry}
-				>
-					{DEGREES.map(degree => (
-						<option>{degree}</option>
-					))}
-				</select>
-			</FormGroup>
 			<FormGroup label="City">
 				<input
 					type="text"
@@ -83,12 +63,32 @@ const CreateOpportunity: React.FC<Props> = props => {
 					))}
 				</select>
 			</FormGroup>
+			<FormGroup label="Industry">
+				<select
+					onChange={generateFieldChange("industry")}
+					value={opportunity.industry}
+				>
+					{INDUSTRY.map(industry => (
+						<option>{industry}</option>
+					))}
+				</select>
+			</FormGroup>
 			<FormGroup label="Minimum Years of Experience">
 				<NumericInput
 					onValueChange={handleExperienceChange}
 					value={opportunity.minYearsExperience}
 					min={0}
 				/>
+			</FormGroup>
+			<FormGroup label="Minimum Education">
+				<select
+					onChange={generateFieldChange("highestLevelOfEducation")}
+					value={opportunity.industry}
+				>
+					{DEGREES.map(degree => (
+						<option>{degree}</option>
+					))}
+				</select>
 			</FormGroup>
 		</div>
 	);

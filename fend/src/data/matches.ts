@@ -18,13 +18,13 @@ const MATCHES: Match[] = [
 		linkedInUrl: "https://www.linkedin.com/in/antanavicius/",
 		imageUrl:
 			"https://media.licdn.com/dms/image/C5603AQG6c6WUatDAXA/profile-displayphoto-shrink_200_200/0?e=1579737600&v=beta&t=335KWeXVQE6vL9R5w3DtHXg3ln_Wawt9YT1Ax7Xgi1o",
-		matchScore: 10,
+		matchScore: 78,
 		matchFields: ["education", "location"]
 	},
 	{
 		id: 4,
 		name: "Adrian Lievano",
-		degree: 1,
+		degree: 2,
 		linkedInUrl: "https://www.linkedin.com/in/adrianlievano/",
 		imageUrl:
 			"https://media.licdn.com/dms/image/C5603AQFhcCzxzbeuXA/profile-displayphoto-shrink_200_200/0?e=1579737600&v=beta&t=vcKWB5PUyHoriQp9wvvMpHJwTQVt9YMNKr-RBmObhOA",
@@ -38,7 +38,7 @@ const MATCHES: Match[] = [
 		linkedInUrl: "https://www.linkedin.com/in/mosnyder/",
 		imageUrl:
 			"https://media.licdn.com/dms/image/C5603AQFSDThsN3EGoQ/profile-displayphoto-shrink_200_200/0?e=1579737600&v=beta&t=oMhk2F90xSR-Jhau9fe2awfe6iHe6_oLTlQJV8e300U",
-		matchScore: 30,
+		matchScore: 60,
 		matchFields: ["education", "location"]
 	},
 	{
@@ -58,7 +58,7 @@ const MATCHES: Match[] = [
 		linkedInUrl: "https://www.linkedin.com/in/selld/",
 		imageUrl:
 			"https://media.licdn.com/dms/image/C5603AQFOvvj_VQvjhw/profile-displayphoto-shrink_200_200/0?e=1579737600&v=beta&t=UEf_W1oyNW_y0JMGIyaVtjPSGTmoNrQWCjTMJgkxmQ0",
-		matchScore: 81,
+		matchScore: 21,
 		matchFields: []
 	}
 ];
