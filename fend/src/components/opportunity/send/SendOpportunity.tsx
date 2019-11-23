@@ -2,6 +2,8 @@ import React from "react";
 import { FormGroup, Checkbox } from "@blueprintjs/core";
 import { Opportunity } from "../../../types";
 
+const IPhonePreview = require("../../../static/iphone.png");
+
 interface Props {
 	opportunity: Opportunity;
 	sendAnonymously: boolean;
@@ -19,13 +21,14 @@ const SendOpportunity: React.FC<Props> = ({
 	return (
 		<div>
 			<h2>Preview</h2>
-			<img
-				src="https://discussions.apple.com/content/attachment/800090040"
-				alt="convo"
-			/>
 			<FormGroup label="Send anonymously?" inline>
 				<Checkbox checked={sendAnonymously} onChange={handleToggle} />
 			</FormGroup>
+			<img
+				style={{ width: "500px" }}
+				src={IPhonePreview}
+				alt="convo"
+			/>
 		</div>
 	);
 };
