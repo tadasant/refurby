@@ -32,9 +32,29 @@ const MatchListHeader: React.FC = () => {
 		</thead>
 	);
 };
-const MatchListItem: React.FC<Match> = props => {
-	const { name, degree, imageUrl, matchScore } = props;
+const MatchListItem: React.FC<Match & {
+	chosenRecipientIds: number[];
+	setChosenRecipientIds: React.Dispatch<React.SetStateAction<number[]>>;
+}> = props => {
+	const {
+		id,
+		name,
+		degree,
+		imageUrl,
+		matchScore,
+		setChosenRecipientIds,
+		chosenRecipientIds
+	} = props;
 	const endorsed = matchScore !== undefined && matchScore > 50; // TODO: tweak :)
+
+	const toggleCheckbox = () => {
+		setChosenRecipientIds(prevIds => {
+			if (chosenRecipientIds.includes(id)) {
+				return _.remove(prevIds, compare => compare !== id);
+			}
+			return [...chosenRecipientIds, id];
+		});
+	};
 
 	return (
 		<tr className="match-item">
@@ -53,7 +73,10 @@ const MatchListItem: React.FC<Match> = props => {
 			<td>{name}</td>
 			<td>{degree}</td>
 			<td className="checkbox-cell">
-				<Checkbox checked={endorsed} />
+				<Checkbox
+					onChange={toggleCheckbox}
+					checked={chosenRecipientIds.includes(id)}
+				/>
 			</td>
 		</tr>
 	);
@@ -67,13 +90,22 @@ interface RandomUser {
 	picture: {
 		medium: string;
 	};
+	id: {
+		value: string;
+	};
 }
 
 interface Props {
 	setStep: (step: OpportunityStep) => void;
+	chosenRecipientIds: number[];
+	setChosenRecipientIds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
+const MatchOpportunity: React.FC<Props> = ({
+	setStep,
+	setChosenRecipientIds,
+	chosenRecipientIds
+}) => {
 	const [matches, setMatches] = useState<Match[]>([]);
 	const [randomUsers, setRandomUsers] = useState<RandomUser[]>([]);
 
@@ -90,10 +122,15 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 			// }).json();
 			const result = await Promise.resolve(Matches);
 			setMatches(result);
+			setChosenRecipientIds(
+				result
+					.filter(result => result.matchScore && result.matchScore > 50)
+					.map(result => result.id)
+			);
 		}
 
 		getMatches();
-	}, []);
+	}, [setChosenRecipientIds]);
 
 	useEffect(() => {
 		async function getRandomUsers() {
@@ -117,15 +154,22 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 					<MatchListHeader />
 					<tbody>
 						{matches.map(match => (
-							<MatchListItem {...match} />
+							<MatchListItem
+								{...match}
+								chosenRecipientIds={chosenRecipientIds}
+								setChosenRecipientIds={setChosenRecipientIds}
+							/>
 						))}
 						{randomUsers.map(randomUser => (
 							<MatchListItem
+								setChosenRecipientIds={setChosenRecipientIds}
+								id={parseInt(randomUser.id.value)}
 								degree={Math.ceil(Math.random() * 2)}
 								imageUrl={randomUser.picture.medium}
 								name={`${_.upperFirst(randomUser.name.first)} ${_.upperFirst(
 									randomUser.name.last
 								)}`}
+								chosenRecipientIds={chosenRecipientIds}
 							/>
 						))}
 					</tbody>

@@ -16,6 +16,7 @@ const OpportunityView: React.FC<RouterProps> = props => {
 	const [opportunity, setOpportunity] = useState<Opportunity>({});
 	const [step, setStep] = useState<OpportunityStep>(OpportunityStep.CREATE);
 	const [sendAnonymously, setSendAnonymously] = useState<boolean>(true);
+	const [chosenRecipientIds, setChosenRecipientIds] = useState<number[]>([]);
 
 	return (
 		<div className="opportunity__outer-container">
@@ -27,7 +28,13 @@ const OpportunityView: React.FC<RouterProps> = props => {
 						setStep={setStep}
 					/>
 				)}
-				{step === OpportunityStep.MATCH && <MatchList setStep={setStep} />}
+				{step === OpportunityStep.MATCH && (
+					<MatchList
+						chosenRecipientIds={chosenRecipientIds}
+						setChosenRecipientIds={setChosenRecipientIds}
+						setStep={setStep}
+					/>
+				)}
 				{step === OpportunityStep.CONFIRM && (
 					<SendOpportunity
 						sendAnonymously={sendAnonymously}
