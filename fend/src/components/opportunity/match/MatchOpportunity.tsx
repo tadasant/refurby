@@ -12,7 +12,7 @@ import {
 	Spinner
 } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
-import { Match } from "../../../types";
+import { Match, Opportunity } from "../../../types";
 import Matches from "../../../data/matches";
 import { OpportunityStep } from "../OpportunityView";
 import "./MatchOpportunity.scss";
@@ -100,12 +100,14 @@ interface Props {
 	setStep: (step: OpportunityStep) => void;
 	chosenRecipientIds: number[];
 	setChosenRecipientIds: React.Dispatch<React.SetStateAction<number[]>>;
+	opportunity: Opportunity;
 }
 
 const MatchOpportunity: React.FC<Props> = ({
 	setStep,
 	setChosenRecipientIds,
-	chosenRecipientIds
+	chosenRecipientIds,
+	opportunity
 }) => {
 	const [matches, setMatches] = useState<Match[]>([]);
 	const [randomUsers, setRandomUsers] = useState<RandomUser[]>([]);
@@ -114,14 +116,22 @@ const MatchOpportunity: React.FC<Props> = ({
 	useEffect(() => {
 		async function getMatches() {
 			// FIXME datafetching
-			// const result = await fetch("url", {
-			//   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			//   headers: {
-			//     'Content-Type': 'application/json'
-			//     // 'Content-Type': 'application/x-www-form-urlencoded',
-			//   },
-			//   body: JSON.stringify(opportunity) // body data type must match "Content-Type" header
-			// }).json();
+			// const result = await fetch("/send_opp", {
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/json"
+			// 	},
+			// 	body: JSON.stringify({
+			// 		user_id: 1,
+			// 		industry: opportunity.industry,
+			// 		min_years_experience: opportunity.minYearsExperience,
+			// 		location_city: opportunity.locationCity,
+			// 		location_state: opportunity.locationState,
+			// 		highest_level_of_education: opportunity.highestLevelOfEducation,
+			// 		blurb: opportunity.blurb,
+			// 		title: opportunity.title
+			// 	})
+			// }).then(response => response.json());
 			const result = await Promise.resolve(Matches);
 			setMatches(result);
 			setChosenRecipientIds(

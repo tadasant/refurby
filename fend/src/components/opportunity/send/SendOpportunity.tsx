@@ -46,13 +46,21 @@ const SendOpportunity: React.FC<Props> = ({
 
 	const handleSubmit = () => {
 		async function sendTexts() {
-			// await fetch("url", {
+			// await fetch("/find_matches", {
 			// 	method: "POST",
 			// 	headers: {
 			// 		"Content-Type": "application/json"
 			// 	},
 			// 	body: JSON.stringify({
-			// 		...opportunity
+			// 		user_id: 1,
+			// 		industry: opportunity.industry,
+			// 		min_years_experience: opportunity.minYearsExperience,
+			// 		location_city: opportunity.locationCity,
+			// 		location_state: opportunity.locationState,
+			// 		highest_level_of_education: opportunity.highestLevelOfEducation,
+			// 		blurb: opportunity.blurb,
+			// 		title: opportunity.title,
+			// 		receiver_ids: chosenRecipientIds
 			// 	}) // body data type must match "Content-Type" header
 			// });
 		}
