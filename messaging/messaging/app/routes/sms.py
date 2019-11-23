@@ -7,17 +7,9 @@ from messaging.app.requests.redirect_sms_request import RedirectSmsRequest
 
 blueprint = Blueprint('sms', __name__)
 
-SWITCHBOARD = {
-    '+19548004479': {
-        '+19735080493': '+19735080493',
-    }
-}
-
 
 @blueprint.route("/sms", methods=['GET', 'POST'])
 def sms_webhook_route():
-    import pdb
-    pdb.set_trace()
     req = RedirectSmsRequest(
         from_number=request.values.get('From'),
         switchboard_number=request.values.get('To'),
