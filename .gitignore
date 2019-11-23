@@ -27,3 +27,5 @@ bend/venv
 bend/migrations
 bend/app.db
 __pycache__
+.idea/
+venv/
