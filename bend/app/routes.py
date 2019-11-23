@@ -39,7 +39,7 @@ def find_matches():
 		user_id = request.args.get("user_id", 1, type=int)
 		opp = json.loads(request.args.get("opp"))
 		user = User.query.filter_by(id=user_id).first()
-		friends_of_friends = user.friends_of_friends()
+		friends_of_friends = user.all_second_degree_connections()
 		matches = generate_matches(friends_of_friends, opp)
 		matches_data = [
 			{
