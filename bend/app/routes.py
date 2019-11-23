@@ -4,7 +4,7 @@ from flask import request, jsonify
 
 from app import app
 from app.models import User
-from app.scorer import generate_matches
+# from app.scorer import generate_matches
 from app.sms_content import get_message_contents
 from app.messaging import send_sms
 
@@ -29,7 +29,7 @@ def send_opp():
 
 		for receiver in receiver_users:
 				for message in message_contents:
-						send_sms(from_number, receiver.phone_number, message_contents)
+						send_sms(from_number, receiver.phone_number, message)
 						print("sending message(s) %s from %s to %s" %  (message_contents, from_number, receiver.phone_number))
 		return 'Messages were sent!'
 
