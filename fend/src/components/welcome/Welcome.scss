@@ -1,0 +1,14 @@
+.welcome__outer-container {
+	display: flex;
+	justify-content: center;
+}
+
+.welcome__inner-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.linkedin-button {
+	border-radius: 10%;
+}
