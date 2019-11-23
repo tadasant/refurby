@@ -1,8 +1,9 @@
 import React from "react";
-import { Intent, Callout, Icon, Colors } from "@blueprintjs/core";
+import { Intent, Callout, Icon, Colors, Button } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { Match } from "../../../types";
 import Matches from "../../../data/matches";
+import { OpportunityStep } from "../OpportunityView";
 
 const MatchListHeader: React.FC = () => {
 	return (
@@ -38,7 +39,11 @@ const MatchListItem: React.FC<Match> = props => {
 	);
 };
 
-const MatchOpportunity: React.FC = props => {
+interface Props {
+	setStep: (step: OpportunityStep) => void;
+}
+
+const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 	return (
 		<div>
 			<h2>Opportunity Matches</h2>
@@ -53,6 +58,16 @@ const MatchOpportunity: React.FC = props => {
 					))}
 				</tbody>
 			</table>
+			<Button
+				intent="none"
+				text="Back"
+				onClick={() => setStep(OpportunityStep.MATCH)}
+			/>
+			<Button
+				intent="primary"
+				text="Preview Broadcast"
+				onClick={() => setStep(OpportunityStep.CONFIRM)}
+			/>
 		</div>
 	);
 };

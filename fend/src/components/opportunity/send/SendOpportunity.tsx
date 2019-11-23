@@ -1,10 +1,11 @@
 import React from "react";
-import { FormGroup, Checkbox } from "@blueprintjs/core";
+import { FormGroup, Checkbox, Button } from "@blueprintjs/core";
 import { Opportunity } from "../../../types";
+import { withRouter, RouteComponentProps } from "react-router";
 
 const IPhonePreview = require("../../../static/iphone.png");
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
 	opportunity: Opportunity;
 	sendAnonymously: boolean;
 	setSendAnonymously: (value: boolean | ((value: boolean) => boolean)) => void;
@@ -13,7 +14,8 @@ interface Props {
 const SendOpportunity: React.FC<Props> = ({
 	opportunity,
 	sendAnonymously,
-	setSendAnonymously
+	setSendAnonymously,
+	history
 }) => {
 	const handleToggle = () => {
 		setSendAnonymously(prevState => !!!prevState);
@@ -24,13 +26,14 @@ const SendOpportunity: React.FC<Props> = ({
 			<FormGroup label="Send anonymously?" inline>
 				<Checkbox checked={sendAnonymously} onChange={handleToggle} />
 			</FormGroup>
-			<img
-				style={{ width: "500px" }}
-				src={IPhonePreview}
-				alt="convo"
+			<img style={{ width: "500px" }} src={IPhonePreview} alt="convo" />
+			<Button
+				intent="primary"
+				text="Preview Broadcast"
+				onClick={() => history.push("/dashboard")}
 			/>
 		</div>
 	);
 };
 
-export default SendOpportunity;
+export default withRouter(SendOpportunity);

@@ -1,16 +1,18 @@
 import React from "react";
-import { FormGroup, TextArea, NumericInput } from "@blueprintjs/core";
+import { FormGroup, TextArea, NumericInput, Button } from "@blueprintjs/core";
 import { Opportunity } from "../../../types";
 import { INDUSTRY, DEGREES, US_STATE } from "../../../constants";
 import _ from "lodash";
+import { OpportunityStep } from "../OpportunityView";
 
 interface Props {
 	opportunity: Opportunity;
 	setOpportunity: (opportunity: Opportunity) => void;
+	setStep: (step: OpportunityStep) => void;
 }
 
 const CreateOpportunity: React.FC<Props> = props => {
-	const { opportunity, setOpportunity } = props;
+	const { opportunity, setOpportunity, setStep } = props;
 
 	const generateFieldChange = (
 		field: keyof Opportunity
@@ -90,6 +92,11 @@ const CreateOpportunity: React.FC<Props> = props => {
 					))}
 				</select>
 			</FormGroup>
+			<Button
+				intent="primary"
+				text="Choose Recipients"
+				onClick={() => setStep(OpportunityStep.MATCH)}
+			/>
 		</div>
 	);
 };
