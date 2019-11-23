@@ -5,6 +5,7 @@ import MatchList from "./match/MatchOpportunity";
 import { Opportunity } from "../../types";
 import SendOpportunity from "./send/SendOpportunity";
 import "./Opportunity.scss";
+import MATCHES from "../../data/matches";
 
 export enum OpportunityStep {
 	CREATE,
@@ -41,6 +42,8 @@ const OpportunityView: React.FC<RouterProps> = props => {
 						setSendAnonymously={setSendAnonymously}
 						opportunity={opportunity}
 						setStep={setStep}
+						chosenRecipientIds={chosenRecipientIds}
+						matches={MATCHES}
 					/>
 				)}
 			</div>

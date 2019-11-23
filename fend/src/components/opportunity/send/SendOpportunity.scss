@@ -1,3 +1,9 @@
+$lighter-blue: #b3cfff;
+$light-blue: #91ace5;
+$blue: #6f8acb;
+$dark-blue: #4b6ab2;
+$darker-blue: #1f4b99;
+
 .peeking-furby {
 	width: 100px;
 	position: absolute;
@@ -36,4 +42,27 @@
 	clear: both;
 	height: 60px;
 	font-size: 32px !important;
+}
+
+.arrow-icon svg {
+	width: 64px;
+	height: 64px;
+}
+
+.match-name {
+	background-color: $blue;
+	border-radius: 15px;
+	text-align: center;
+	color: white;
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	margin-bottom: 8px;
+}
+
+.recipients-icons {
+	display: flex;
+	width: 240px;
+	justify-content: space-between;
+	flex-wrap: wrap;
 }

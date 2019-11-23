@@ -4,9 +4,10 @@ import {
 	Checkbox,
 	Button,
 	Card,
-	Elevation
+	Elevation,
+	Icon
 } from "@blueprintjs/core";
-import { Opportunity } from "../../../types";
+import { Opportunity, Match } from "../../../types";
 import { withRouter, RouteComponentProps } from "react-router";
 import { OpportunityStep } from "../OpportunityView";
 import Toaster from "../../toaster";
@@ -21,6 +22,8 @@ interface Props extends RouteComponentProps<any> {
 	sendAnonymously: boolean;
 	setSendAnonymously: (value: boolean | ((value: boolean) => boolean)) => void;
 	setStep: (value: OpportunityStep) => void;
+	chosenRecipientIds: number[];
+	matches: Match[];
 }
 
 const SendOpportunity: React.FC<Props> = ({
@@ -28,7 +31,9 @@ const SendOpportunity: React.FC<Props> = ({
 	sendAnonymously,
 	setSendAnonymously,
 	history,
-	setStep
+	setStep,
+	chosenRecipientIds,
+	matches
 }) => {
 	const handleToggle = () => {
 		setSendAnonymously(prevState => !!!prevState);
@@ -62,6 +67,18 @@ const SendOpportunity: React.FC<Props> = ({
 					<Checkbox checked={sendAnonymously} onChange={handleToggle} />
 				</FormGroup>
 				<img className="preview-convo" src={IPhonePreview} alt="convo" />
+				<Icon className="arrow-icon" icon="arrow-down" />
+				<div className="recipients-icons">
+					{chosenRecipientIds.map(id => (
+						<div>
+							<img
+								alt="person"
+								className="match-name"
+								src={matches.find(match => match.id === id)!.imageUrl}
+							/>
+						</div>
+					))}
+				</div>
 			</Card>
 			<ActionBar>
 				<Button
