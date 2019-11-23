@@ -13,11 +13,11 @@ import {
 } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { Match, Opportunity } from "../../../types";
-import Matches from "../../../data/matches";
 import { OpportunityStep } from "../OpportunityView";
 import "./MatchOpportunity.scss";
 import _ from "lodash";
 import ActionBar from "../ActionBar";
+import { NGROK_URL } from "../../../constants";
 
 const WhiteFurby = require("../../../images/furby-white.png");
 
@@ -115,34 +115,37 @@ const MatchOpportunity: React.FC<Props> = ({
 
 	useEffect(() => {
 		async function getMatches() {
-			// FIXME datafetching
-			// const result = await fetch("/send_opp", {
-			// 	method: "POST",
-			// 	headers: {
-			// 		"Content-Type": "application/json"
-			// 	},
-			// 	body: JSON.stringify({
-			// 		user_id: 1,
-			// 		industry: opportunity.industry,
-			// 		min_years_experience: opportunity.minYearsExperience,
-			// 		location_city: opportunity.locationCity,
-			// 		location_state: opportunity.locationState,
-			// 		highest_level_of_education: opportunity.highestLevelOfEducation,
-			// 		blurb: opportunity.blurb,
-			// 		title: opportunity.title
-			// 	})
-			// }).then(response => response.json());
-			const result = await Promise.resolve(Matches);
-			setMatches(result);
+			const result: { connections: Match[] } = await fetch(
+				`${NGROK_URL}/find_matches`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						user_id: 1,
+						opp: {
+							industry: opportunity.industry,
+							min_years_experience: opportunity.minYearsExperience,
+							location_city: opportunity.locationCity,
+							location_state: opportunity.locationState,
+							highest_level_of_education: opportunity.highestLevelOfEducation,
+							blurb: opportunity.blurb,
+							title: opportunity.title
+						}
+					})
+				}
+			).then(response => response.json());
+			setMatches(result.connections);
 			setChosenRecipientIds(
-				result
+				result.connections
 					.filter(result => result.matchScore && result.matchScore > 50)
 					.map(result => result.id)
 			);
 		}
 
 		getMatches();
-	}, [setChosenRecipientIds]);
+	}, [setChosenRecipientIds, opportunity]);
 
 	useEffect(() => {
 		async function getRandomUsers() {

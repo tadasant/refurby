@@ -14,6 +14,7 @@ import { OpportunityStep } from "../OpportunityView";
 import Toaster from "../../toaster";
 import "./SendOpportunity.scss";
 import ActionBar from "../ActionBar";
+import { NGROK_URL } from "../../../constants";
 
 const IPhonePreview = require("../../../static/iphone.png");
 const WhiteFurby = require("../../../images/furby-white.png");
@@ -46,23 +47,25 @@ const SendOpportunity: React.FC<Props> = ({
 
 	const handleSubmit = () => {
 		async function sendTexts() {
-			// await fetch("/find_matches", {
-			// 	method: "POST",
-			// 	headers: {
-			// 		"Content-Type": "application/json"
-			// 	},
-			// 	body: JSON.stringify({
-			// 		user_id: 1,
-			// 		industry: opportunity.industry,
-			// 		min_years_experience: opportunity.minYearsExperience,
-			// 		location_city: opportunity.locationCity,
-			// 		location_state: opportunity.locationState,
-			// 		highest_level_of_education: opportunity.highestLevelOfEducation,
-			// 		blurb: opportunity.blurb,
-			// 		title: opportunity.title,
-			// 		receiver_ids: chosenRecipientIds
-			// 	}) // body data type must match "Content-Type" header
-			// });
+			await fetch(`${NGROK_URL}/send_opp`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					user_id: 1,
+					opp: {
+						industry: opportunity.industry,
+						min_years_experience: opportunity.minYearsExperience,
+						location_city: opportunity.locationCity,
+						location_state: opportunity.locationState,
+						highest_level_of_education: opportunity.highestLevelOfEducation,
+						blurb: opportunity.blurb,
+						title: opportunity.title
+					},
+					receiver_ids: chosenRecipientIds
+				}) // body data type must match "Content-Type" header
+			});
 		}
 		sendTexts();
 		setLoadingTimerIsSet(true);
