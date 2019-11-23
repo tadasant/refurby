@@ -1,8 +1,9 @@
 import React from "react";
 import { Navbar, Icon, Alignment, Colors } from "@blueprintjs/core";
 import RefurbyLogo from "../images/furby-logo-2.svg";
+import { withRouter, RouterProps } from "react-router";
 
-const Header: React.FC = props => {
+const Header: React.FC<RouterProps> = ({ history }) => {
 	return (
 		<Navbar className="header">
 			<Navbar.Group align={Alignment.LEFT}>
@@ -13,7 +14,10 @@ const Header: React.FC = props => {
 					<Icon icon="people" color={Colors.WHITE} />
 					<span className="navbar-text">Contacts</span>
 				</button>
-				<button className="bp3-button bp3-minimal nav-button">
+				<button
+					className="bp3-button bp3-minimal nav-button"
+					onClick={() => history.push("/dashboard")}
+				>
 					<Icon icon="briefcase" color={Colors.WHITE} />
 					<span className="navbar-text">Opportunities</span>
 				</button>
@@ -28,4 +32,4 @@ const Header: React.FC = props => {
 	);
 };
 
-export default Header;
+export default withRouter(Header);

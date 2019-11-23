@@ -34,7 +34,7 @@ const CreateOpportunity: React.FC<Props> = props => {
 	return (
 		<div>
 			<h2>Broadcast New Opportunity</h2>
-			<FormGroup label="Title">
+			<FormGroup inline label="Title">
 				<input
 					type="text"
 					className="bp3-input"
@@ -42,10 +42,10 @@ const CreateOpportunity: React.FC<Props> = props => {
 					value={opportunity.title}
 				/>
 			</FormGroup>
-			<FormGroup label="Blurb">
+			<FormGroup inline label="Blurb">
 				<TextArea onChange={generateFieldChange("blurb")} />
 			</FormGroup>
-			<FormGroup label="City">
+			<FormGroup inline label="City">
 				<input
 					type="text"
 					className="bp3-input"
@@ -53,7 +53,7 @@ const CreateOpportunity: React.FC<Props> = props => {
 					value={opportunity.locationCity}
 				/>
 			</FormGroup>
-			<FormGroup label="State">
+			<FormGroup inline label="State">
 				<select
 					onChange={generateFieldChange("locationState")}
 					value={opportunity.locationState}
@@ -63,7 +63,7 @@ const CreateOpportunity: React.FC<Props> = props => {
 					))}
 				</select>
 			</FormGroup>
-			<FormGroup label="Industry">
+			<FormGroup inline label="Industry">
 				<select
 					onChange={generateFieldChange("industry")}
 					value={opportunity.industry}
@@ -73,14 +73,14 @@ const CreateOpportunity: React.FC<Props> = props => {
 					))}
 				</select>
 			</FormGroup>
-			<FormGroup label="Minimum Years of Experience">
+			<FormGroup inline label="Minimum Years of Experience">
 				<NumericInput
 					onValueChange={handleExperienceChange}
 					value={opportunity.minYearsExperience}
 					min={0}
 				/>
 			</FormGroup>
-			<FormGroup label="Minimum Education">
+			<FormGroup inline label="Minimum Education">
 				<select
 					onChange={generateFieldChange("highestLevelOfEducation")}
 					value={opportunity.industry}
