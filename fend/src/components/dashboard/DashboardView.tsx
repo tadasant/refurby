@@ -15,7 +15,7 @@ const DashboardView: React.FC<RouterProps> = props => {
 					<Button
 						className="add-new-opportunity-button"
 						icon="plus"
-						text="Add Opportunity"
+						text="Broadcast New Opportunity"
 						onClick={() => history.push("/opportunity")}
 						intent="primary"
 					/>
