@@ -21,6 +21,8 @@ class User(db.Model):
     years_of_experience = db.Column(db.Integer)
     degree = db.Column(db.Enum(Degree))
 
+    def friends_of_friends(self):
+        return [self]
 
     def __repr__(self):
         return '<User {}>'.format(self.email)
