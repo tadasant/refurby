@@ -32,3 +32,4 @@ venv/
 lib/
 bin/
 *.db
+*.iml

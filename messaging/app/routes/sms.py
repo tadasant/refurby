@@ -1,9 +1,9 @@
 from flask import request
-from messaging.app.coreservices.send_sms import send_sms
-from messaging.app.coreservices.send_sms import redirect_sms
+from app.coreservices.send_sms import send_sms
+from app.coreservices.send_sms import redirect_sms
 from flask import Blueprint
-from messaging.app.requests.send_sms_request import SendSmsRequest
-from messaging.app.requests.redirect_sms_request import RedirectSmsRequest
+from app.requests.send_sms_request import SendSmsRequest
+from app.requests.redirect_sms_request import RedirectSmsRequest
 
 blueprint = Blueprint('sms', __name__)
 
