@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Intent, Callout, Icon, Colors, Button } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { Match } from "../../../types";
@@ -44,6 +44,19 @@ interface Props {
 }
 
 const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
+	const [matches, setMatches] = useState<Match[]>([]);
+
+	useEffect(() => {
+		async function getMatches() {
+			// FIXME datafetching
+			// const result = await fetch("https://hn.algolia.com/api/v1/search?query=redux");
+			const result = await Promise.resolve(Matches);
+			setMatches(result);
+		}
+
+		getMatches();
+	}, []);
+
 	return (
 		<div>
 			<h2>Opportunity Matches</h2>
@@ -53,7 +66,7 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 			<table className="bp3-html-table">
 				<MatchListHeader />
 				<tbody>
-					{Matches.map(match => (
+					{matches.map(match => (
 						<MatchListItem {...match} />
 					))}
 				</tbody>
