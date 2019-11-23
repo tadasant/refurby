@@ -38,7 +38,7 @@ const MatchListItem: React.FC<Match> = props => {
 	);
 };
 
-const MatchList: React.FC = props => {
+const MatchOpportunity: React.FC = props => {
 	return (
 		<div>
 			<h2>Opportunity Matches</h2>
@@ -57,4 +57,4 @@ const MatchList: React.FC = props => {
 	);
 };
 
-export default MatchList;
+export default MatchOpportunity;

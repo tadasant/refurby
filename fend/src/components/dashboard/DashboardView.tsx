@@ -16,8 +16,9 @@ const DashboardView: React.FC<RouterProps> = props => {
 				intent="primary"
 			/>
 			<h3>Active Opportunities</h3>
-			{OPPORTUNITIES.map(opportunity => (
+			{OPPORTUNITIES.map((opportunity, i) => (
 				<OpportunityCard
+					key={`opportunity_${i}`}
 					opportunity={opportunity}
 					className="dashboard__opportunity"
 				/>
