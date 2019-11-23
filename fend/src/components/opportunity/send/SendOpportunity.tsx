@@ -4,6 +4,7 @@ import { Opportunity } from "../../../types";
 import { withRouter, RouteComponentProps } from "react-router";
 import { OpportunityStep } from "../OpportunityView";
 import Toaster from "../../toaster";
+import "./SendOpportunity.scss";
 
 const IPhonePreview = require("../../../static/iphone.png");
 

@@ -5,12 +5,17 @@ import {
 	Icon,
 	Colors,
 	Button,
-	Divider
+	Divider,
+	Elevation,
+	Card
 } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { Match } from "../../../types";
 import Matches from "../../../data/matches";
 import { OpportunityStep } from "../OpportunityView";
+import "./MatchOpportunity.scss";
+
+const WhiteFurby = require("../../../images/furby-white.png");
 
 const MatchListHeader: React.FC = () => {
 	return (
@@ -18,7 +23,6 @@ const MatchListHeader: React.FC = () => {
 			<tr className="match-item">
 				<th>&nbsp;</th>
 				<th>Name</th>
-				<th>Endorsed</th>
 				<th>1st / 2nd Degree</th>
 			</tr>
 		</thead>
@@ -30,17 +34,19 @@ const MatchListItem: React.FC<Match> = props => {
 
 	return (
 		<tr className="match-item">
-			<td>
+			<td className="img-cell">
 				<img alt="furby pics" className="match-avatar" src={imageUrl} />
-			</td>
-			<td>{name}</td>
-			<td>
 				{endorsed ? (
-					<Icon color={Colors.GREEN3} icon={IconNames.ENDORSED} />
+					<Icon
+						className="endorsed-icon"
+						color={Colors.GREEN3}
+						icon={IconNames.ENDORSED}
+					/>
 				) : (
 					" "
 				)}
 			</td>
+			<td>{name}</td>
 			<td>{degree}</td>
 		</tr>
 	);
@@ -73,24 +79,29 @@ const MatchOpportunity: React.FC<Props> = ({ setStep }) => {
 
 	return (
 		<div>
-			<h2>Opportunity Matches</h2>
-			<Callout intent={Intent.SUCCESS} icon={IconNames.ENDORSED}>
-				4 people in your network are recommended for this opportunity!
-			</Callout>
-			<table className="bp3-html-table">
-				<MatchListHeader />
-				<tbody>
-					{matches.map(match => (
-						<MatchListItem {...match} />
-					))}
-				</tbody>
-			</table>
-			<Divider className="matches__button-divider" />
+			<img className="peeking-furby" src={WhiteFurby} alt="white-furby" />
+			<Card elevation={Elevation.THREE} className="match-opportunity__card">
+				<h2 className="match-header">Opportunity Matches</h2>
+				<Callout intent={Intent.SUCCESS} icon={IconNames.ENDORSED}>
+					4 people in your network are recommended for this opportunity!
+				</Callout>
+				<table className="bp3-html-table">
+					<MatchListHeader />
+					<tbody>
+						{matches.map(match => (
+							<MatchListItem {...match} />
+						))}
+					</tbody>
+				</table>
+				<Divider className="matches__button-divider" />
+			</Card>
+
 			<Button
 				intent="none"
 				text="Back"
 				onClick={() => setStep(OpportunityStep.CREATE)}
 			/>
+
 			<Button
 				className="preview-button"
 				intent="primary"

@@ -1,7 +1,6 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "~normalize.css/normalize.css";
-@import "./components/opportunity/match/MatchOpportunity.scss";
 @import "~@blueprintjs/core/lib/scss/variables";
 
 $lighter-blue: #b3cfff;
@@ -11,6 +10,10 @@ $dark-blue: #4b6ab2;
 $darker-blue: #1f4b99;
 
 // use $dark-gray1, $dark-gray2, etc. for text
+
+.appWrapper {
+	margin-bottom: 64px;
+}
 
 .header {
 	height: 45px;
