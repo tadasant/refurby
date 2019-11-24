@@ -17,7 +17,7 @@ import { OpportunityStep } from "../OpportunityView";
 import "./MatchOpportunity.scss";
 import _ from "lodash";
 import ActionBar from "../ActionBar";
-import { NGROK_URL } from "../../../constants";
+import MATCHES from "../../../data/matches";
 
 const WhiteFurby = require("../../../images/furby-white.png");
 
@@ -131,30 +131,31 @@ const MatchOpportunity: React.FC<Props> = ({
 
 	useEffect(() => {
 		async function getMatches() {
-			const result: { connections: Match[] } = await fetch(
-				`${NGROK_URL}/find_matches`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify({
-						user_id: 1,
-						opp: {
-							industry: opportunity.industry,
-							min_years_experience: opportunity.minYearsExperience,
-							location_city: opportunity.locationCity,
-							location_state: opportunity.locationState,
-							highest_level_of_education: opportunity.highestLevelOfEducation,
-							blurb: opportunity.blurb,
-							title: opportunity.title
-						}
-					})
-				}
-			).then(response => response.json());
-			setMatches(result.connections);
+			// const result: { connections: Match[] } = await fetch(
+			// 	`${NGROK_URL}/find_matches`,
+			// 	{
+			// 		method: "POST",
+			// 		headers: {
+			// 			"Content-Type": "application/json"
+			// 		},
+			// 		body: JSON.stringify({
+			// 			user_id: 1,
+			// 			opp: {
+			// 				industry: opportunity.industry,
+			// 				min_years_experience: opportunity.minYearsExperience,
+			// 				location_city: opportunity.locationCity,
+			// 				location_state: opportunity.locationState,
+			// 				highest_level_of_education: opportunity.highestLevelOfEducation,
+			// 				blurb: opportunity.blurb,
+			// 				title: opportunity.title
+			// 			}
+			// 		})
+			// 	}
+			// ).then(response => response.json());
+			const result = MATCHES;
+			setMatches(result);
 			setChosenRecipientIds(
-				result.connections
+				result
 					.filter(result => result.matchScore && result.matchScore > 50)
 					.map(result => result.id)
 			);
