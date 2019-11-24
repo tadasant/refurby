@@ -11,7 +11,7 @@ def create_users():
             name='Tadas',
             city='San Francisco',
             current_position='Software Engineer',
-            phone_number='+4842229088',
+            phone_number='+14842229088',
         ),
         User(
             id=2,
@@ -27,7 +27,7 @@ def create_users():
             name='Adrian',
             city='San Francisco',
             current_position='Software Engineer',
-            phone_number='+7865154282',
+            phone_number='+17865154282',
         ),
         User(
             id=4,
@@ -35,7 +35,7 @@ def create_users():
             name='Dennis',
             city='San Francisco',
             current_position='Software Engineer',
-            phone_number='+6504410574',
+            phone_number='+16504410574',
         ),
         User(
             id=5,
@@ -43,7 +43,7 @@ def create_users():
             name='Morgan',
             city='San Francisco',
             current_position='Software Engineer',
-            phone_number='+4848899913',
+            phone_number='+14848899913',
         ),
     ]
 

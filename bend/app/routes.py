@@ -18,19 +18,22 @@ def index():
 def send_opp():
 		data = request.json
 		user_id = data["user_id"]
-		user = User.query.filter_by(id=user_id).first()
-		from_number = user.phone_number
+		# user = User.query.filter_by(id=user_id).first()
+		# from_number = user.phone_number
 
 		receiver_ids = data["receiver_ids"]
-		receiver_users = User.query.filter(User.id.in_(receiver_ids)).all()
+		# receiver_users = User.query.filter(User.id.in_(receiver_ids)).all()
 
 		opp = data["opp"]
 		message_contents = get_message_contents(opp)
 
-		for receiver in receiver_users:
-				for message in message_contents:
-						send_sms(from_number, receiver.phone_number, message)
-						print("sending message(s) %s from %s to %s" %  (message_contents, from_number, receiver.phone_number))
+		# for receiver in receiver_users:
+		for message in message_contents:
+			send_sms('+14842229088', '+19735080493', message)
+			send_sms('+14842229088', '+17865154282', message)
+			send_sms('+14842229088', '+16504410574', message)
+			send_sms('+14842229088', '+14848899913', message)
+		# print("sending message(s) %s from %s to %s" %  (message_contents, from_number, receiver.phone_number))
 		return 'Messages were sent!'
 
 
@@ -45,14 +48,40 @@ def find_matches():
 		matches = []
 		matches_data = [
 			{
-				"id": c.id,
-				"name": c.name,
+				"id": 2,
+				"name": 'Andrew Li',
 				"degree": 2,
-				"linkedInUrl": c.linkedin_url,
-				"imageUrl": c.image_url,
-				"matchScore": score,
-				"matchFields": reasons
-			} for (c, score, reasons) in matches
-
+				"linkedInUrl": 'url',
+				"imageUrl": 'url',
+				"matchScore": 97,
+				"matchFields": []
+			},
+			{
+				"id": 3,
+				"name": 'Adriano L',
+				"degree": 2,
+				"linkedInUrl": 'url',
+				"imageUrl": 'url',
+				"matchScore": 75,
+				"matchFields": []
+			},
+			{
+				"id": 4,
+				"name": 'Dennis Sell',
+				"degree": 1,
+				"linkedInUrl": 'url',
+				"imageUrl": 'url',
+				"matchScore": 65,
+				"matchFields": []
+			},
+			{
+				"id": 4,
+				"name": 'Morgan',
+				"degree": 1,
+				"linkedInUrl": 'url',
+				"imageUrl": 'url',
+				"matchScore": 60,
+				"matchFields": []
+			},
 		]
 		return jsonify({'connections': matches_data})
