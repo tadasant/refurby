@@ -1,4 +1,4 @@
-from app.models import User
+from app.models import User, Degree
 from app import db
 
 
@@ -11,7 +11,9 @@ def create_users():
             name='Tadas',
             city='San Francisco',
             current_position='Software Engineer',
-            phone_number='+4842229088',
+            phone_number='+14842229088',
+            years_of_experience=2,
+            degree=Degree.ASSOCIATE,
         ),
         User(
             id=2,
@@ -20,6 +22,8 @@ def create_users():
             city='San Francisco',
             current_position='Software Engineer',
             phone_number='+19735080493',
+            years_of_experience=2,
+            degree=Degree.ASSOCIATE,
         ),
         User(
             id=3,
@@ -27,7 +31,9 @@ def create_users():
             name='Adrian',
             city='San Francisco',
             current_position='Software Engineer',
-            phone_number='+7865154282',
+            phone_number='+17865154282',
+            years_of_experience=2,
+            degree=Degree.ASSOCIATE,
         ),
         User(
             id=4,
@@ -35,7 +41,9 @@ def create_users():
             name='Dennis',
             city='San Francisco',
             current_position='Software Engineer',
-            phone_number='+6504410574',
+            phone_number='+16504410574',
+            years_of_experience=2,
+            degree=Degree.ASSOCIATE,
         ),
         User(
             id=5,
@@ -43,17 +51,21 @@ def create_users():
             name='Morgan',
             city='San Francisco',
             current_position='Software Engineer',
-            phone_number='+4848899913',
+            phone_number='+14848899913',
+            years_of_experience=2,
+            degree=Degree.ASSOCIATE,
         ),
     ]
+
+    for user in users:
+        db.session.add(user)
+    db.session.commit()
 
     users[0].befriend(users[1])
     users[1].befriend(users[2])
     users[2].befriend(users[3])
     users[3].befriend(users[4])
 
-    for user in users:
-        db.session.add(user)
     db.session.commit()
 
 
