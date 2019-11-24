@@ -17,7 +17,7 @@ import { OpportunityStep } from "../OpportunityView";
 import "./MatchOpportunity.scss";
 import _ from "lodash";
 import ActionBar from "../ActionBar";
-import { NGROK_URL } from "../../../constants";
+import MATCHES from "../../../data/matches";
 
 const WhiteFurby = require("../../../images/furby-white.png");
 
@@ -27,7 +27,11 @@ const MatchListHeader: React.FC = () => {
 			<tr className="match-item">
 				<th>&nbsp;</th>
 				<th>Name</th>
-				<th>1st / 2nd Degree</th>
+				<th className="centerable-cell">1st / 2nd Degree</th>
+				<th className="centerable-cell">Industry</th>
+				<th className="centerable-cell">Education</th>
+				<th className="centerable-cell">Location</th>
+				<th className="centerable-cell">Experience</th>
 				<th className="checkbox-cell">Send?</th>
 			</tr>
 		</thead>
@@ -72,7 +76,19 @@ const MatchListItem: React.FC<Match & {
 				)}
 			</td>
 			<td>{name}</td>
-			<td>{degree}</td>
+			<td className="centerable-cell">{degree}</td>
+			<td className="centerable-cell">
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
+			</td>
+			<td className="centerable-cell">
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
+			</td>
+			<td className="centerable-cell">
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
+			</td>
+			<td className="centerable-cell">
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
+			</td>
 			<td className="checkbox-cell">
 				<Checkbox
 					onChange={toggleCheckbox}
@@ -115,30 +131,31 @@ const MatchOpportunity: React.FC<Props> = ({
 
 	useEffect(() => {
 		async function getMatches() {
-			const result: { connections: Match[] } = await fetch(
-				`${NGROK_URL}/find_matches`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify({
-						user_id: 1,
-						opp: {
-							industry: opportunity.industry,
-							min_years_experience: opportunity.minYearsExperience,
-							location_city: opportunity.locationCity,
-							location_state: opportunity.locationState,
-							highest_level_of_education: opportunity.highestLevelOfEducation,
-							blurb: opportunity.blurb,
-							title: opportunity.title
-						}
-					})
-				}
-			).then(response => response.json());
-			setMatches(result.connections);
+			// const result: { connections: Match[] } = await fetch(
+			// 	`${NGROK_URL}/find_matches`,
+			// 	{
+			// 		method: "POST",
+			// 		headers: {
+			// 			"Content-Type": "application/json"
+			// 		},
+			// 		body: JSON.stringify({
+			// 			user_id: 1,
+			// 			opp: {
+			// 				industry: opportunity.industry,
+			// 				min_years_experience: opportunity.minYearsExperience,
+			// 				location_city: opportunity.locationCity,
+			// 				location_state: opportunity.locationState,
+			// 				highest_level_of_education: opportunity.highestLevelOfEducation,
+			// 				blurb: opportunity.blurb,
+			// 				title: opportunity.title
+			// 			}
+			// 		})
+			// 	}
+			// ).then(response => response.json());
+			const result = MATCHES;
+			setMatches(result);
 			setChosenRecipientIds(
-				result.connections
+				result
 					.filter(result => result.matchScore && result.matchScore > 50)
 					.map(result => result.id)
 			);
@@ -176,7 +193,8 @@ const MatchOpportunity: React.FC<Props> = ({
 			<Card elevation={Elevation.THREE} className="match-opportunity__card">
 				<h2 className="match-header">Opportunity Matches</h2>
 				<Callout intent={Intent.SUCCESS} icon={IconNames.ENDORSED}>
-					4 people in your network are recommended for this opportunity!
+					{matches.length} people in your network are recommended for this
+					opportunity!
 				</Callout>
 				<table className="bp3-html-table">
 					<MatchListHeader />
