@@ -34,13 +34,15 @@ def send_opp():
 		return 'Messages were sent!'
 
 
-@app.route('/find_matches', methods=['GET', 'POST'])
+@app.route('/find_matches', methods=['POST'])
 def find_matches():
-		user_id = request.args.get("user_id", 1, type=int)
-		opp = json.loads(request.args.get("opp"))
+		data = request.json
+		user_id = data['user_id']
+		opp = data['opp']
 		user = User.query.filter_by(id=user_id).first()
 		friends_of_friends = user.all_second_degree_connections()
-		matches = generate_matches(friends_of_friends, opp)
+		# matches = generate_matches(friends_of_friends, opp)
+		matches = []
 		matches_data = [
 			{
 				"id": c.id,

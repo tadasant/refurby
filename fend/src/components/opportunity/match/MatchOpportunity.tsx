@@ -12,12 +12,12 @@ import {
 	Spinner
 } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
-import { Match } from "../../../types";
-import Matches from "../../../data/matches";
+import { Match, Opportunity } from "../../../types";
 import { OpportunityStep } from "../OpportunityView";
 import "./MatchOpportunity.scss";
 import _ from "lodash";
 import ActionBar from "../ActionBar";
+import MATCHES from "../../../data/matches";
 
 const WhiteFurby = require("../../../images/furby-white.png");
 
@@ -27,7 +27,11 @@ const MatchListHeader: React.FC = () => {
 			<tr className="match-item">
 				<th>&nbsp;</th>
 				<th>Name</th>
-				<th>1st / 2nd Degree</th>
+				<th className="centerable-cell">1st / 2nd Degree</th>
+				<th className="centerable-cell">Industry</th>
+				<th className="centerable-cell">Education</th>
+				<th className="centerable-cell">Location</th>
+				<th className="centerable-cell">Experience</th>
 				<th className="checkbox-cell">Send?</th>
 			</tr>
 		</thead>
@@ -72,7 +76,19 @@ const MatchListItem: React.FC<Match & {
 				)}
 			</td>
 			<td>{name}</td>
-			<td>{degree}</td>
+			<td className="centerable-cell">{degree}</td>
+			<td className="centerable-cell">
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
+			</td>
+			<td className="centerable-cell">
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
+			</td>
+			<td className="centerable-cell">
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
+			</td>
+			<td className="centerable-cell">
+				{matchScore ? <Icon icon="endorsed" color={Colors.BLUE5} /> : null}
+			</td>
 			<td className="checkbox-cell">
 				<Checkbox
 					onChange={toggleCheckbox}
@@ -100,12 +116,14 @@ interface Props {
 	setStep: (step: OpportunityStep) => void;
 	chosenRecipientIds: number[];
 	setChosenRecipientIds: React.Dispatch<React.SetStateAction<number[]>>;
+	opportunity: Opportunity;
 }
 
 const MatchOpportunity: React.FC<Props> = ({
 	setStep,
 	setChosenRecipientIds,
-	chosenRecipientIds
+	chosenRecipientIds,
+	opportunity
 }) => {
 	const [matches, setMatches] = useState<Match[]>([]);
 	const [randomUsers, setRandomUsers] = useState<RandomUser[]>([]);
@@ -113,16 +131,28 @@ const MatchOpportunity: React.FC<Props> = ({
 
 	useEffect(() => {
 		async function getMatches() {
-			// FIXME datafetching
-			// const result = await fetch("url", {
-			//   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			//   headers: {
-			//     'Content-Type': 'application/json'
-			//     // 'Content-Type': 'application/x-www-form-urlencoded',
-			//   },
-			//   body: JSON.stringify(opportunity) // body data type must match "Content-Type" header
-			// }).json();
-			const result = await Promise.resolve(Matches);
+			// const result: { connections: Match[] } = await fetch(
+			// 	`${NGROK_URL}/find_matches`,
+			// 	{
+			// 		method: "POST",
+			// 		headers: {
+			// 			"Content-Type": "application/json"
+			// 		},
+			// 		body: JSON.stringify({
+			// 			user_id: 1,
+			// 			opp: {
+			// 				industry: opportunity.industry,
+			// 				min_years_experience: opportunity.minYearsExperience,
+			// 				location_city: opportunity.locationCity,
+			// 				location_state: opportunity.locationState,
+			// 				highest_level_of_education: opportunity.highestLevelOfEducation,
+			// 				blurb: opportunity.blurb,
+			// 				title: opportunity.title
+			// 			}
+			// 		})
+			// 	}
+			// ).then(response => response.json());
+			const result = MATCHES;
 			setMatches(result);
 			setChosenRecipientIds(
 				result
@@ -132,7 +162,7 @@ const MatchOpportunity: React.FC<Props> = ({
 		}
 
 		getMatches();
-	}, [setChosenRecipientIds]);
+	}, [setChosenRecipientIds, opportunity]);
 
 	useEffect(() => {
 		async function getRandomUsers() {
@@ -163,7 +193,8 @@ const MatchOpportunity: React.FC<Props> = ({
 			<Card elevation={Elevation.THREE} className="match-opportunity__card">
 				<h2 className="match-header">Opportunity Matches</h2>
 				<Callout intent={Intent.SUCCESS} icon={IconNames.ENDORSED}>
-					4 people in your network are recommended for this opportunity!
+					{matches.length} people in your network are recommended for this
+					opportunity!
 				</Callout>
 				<table className="bp3-html-table">
 					<MatchListHeader />

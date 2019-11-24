@@ -35,6 +35,7 @@ const OpportunityView: React.FC<Props> = props => {
 				)}
 				{step === OpportunityStep.MATCH && (
 					<MatchList
+						opportunity={opportunity}
 						chosenRecipientIds={chosenRecipientIds}
 						setChosenRecipientIds={setChosenRecipientIds}
 						setStep={setStep}
